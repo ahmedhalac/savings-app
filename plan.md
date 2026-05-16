@@ -25,14 +25,13 @@ The AI assistant helps users optimize their saving strategy to achieve financial
 
 ### Multi-Account Support
 
-The app supports multiple savings and current accounts, including:
+The application supports multiple savings and current accounts, including:
 
-* Ahmed — BBI Savings Account
-* Ahmed — BBI Current Account (buffer for unexpected expenses)
-* Ahmed — UniCredit Current Account
-* Dzeneta — UniCredit Current Account
+- Primary Savings Account
+- Primary Current Account
+- Secondary Current Account (buffer for unexpected expenses)
 
-Part of the total savings may be distributed across different accounts, and the application should aggregate all balances into a single overview.
+The total savings balance may be distributed across multiple accounts, and the application should aggregate all balances into a single financial overview.
 
 ### Loan Tracking
 
