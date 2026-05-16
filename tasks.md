@@ -19,8 +19,8 @@
 
 ### Accounts
 
-- [ ] `GET /accounts` — list all accounts with balances
-- [ ] `GET /accounts/summary` — return total balance aggregated across all accounts
+- [x] `GET /accounts` — list all accounts with balances
+- [x] `GET /accounts/summary` — return total balance aggregated across all accounts
 
 ### Transactions
 
