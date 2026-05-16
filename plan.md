@@ -6,20 +6,20 @@ The application enables users to track and manage their savings across multiple 
 
 ### Core Features
 
-* Add money to savings accounts
-* Create savings goals with optional deadlines
-* Support unexpected withdrawals with a required explanation for why funds were withdrawn
-* Display transaction history (deposits and withdrawals) with dates in a list view
-* Automatically calculate and display the total balance across all connected accounts
+- Add money to savings accounts
+- Create savings goals with optional deadlines
+- Support unexpected withdrawals with a required explanation for why funds were withdrawn
+- Display transaction history (deposits and withdrawals) with dates in a list view
+- Automatically calculate and display the total balance across all connected accounts
 
 ### AI Financial Assistant
 
 The application includes an AI-powered assistant that provides personalized savings recommendations based on:
 
-* Monthly salary
-* Current savings balance
-* Savings goal amount
-* Target deadline
+- Monthly salary
+- Current savings balance
+- Savings goal amount
+- Target deadline
 
 The AI assistant helps users optimize their saving strategy to achieve financial goals more efficiently.
 
@@ -39,14 +39,14 @@ The application also supports loan tracking directly connected to savings.
 
 Example:
 
-* Total savings: `20,000 KM`
-* Active loans: `-3,500 KM`
+- Total savings: `20,000 KM`
+- Active loans: `-3,500 KM`
 
 Loans should not directly reduce the displayed savings balance. Instead, they should be presented separately to provide a clear overview of:
 
-* Total saved funds
-* Money currently loaned out
-* Net available balance
+- Total saved funds
+- Money currently loaned out
+- Net available balance
 
 ---
 
@@ -70,11 +70,11 @@ The application will be developed in the following order:
 
 # Tech Stack
 
-* **Frontend:** Angular 19
-* **Backend:** NestJS
-* **Database:** PostgreSQL
+- **Frontend:** Angular 20
+- **Backend:** NestJS
+- **Database:** PostgreSQL
 
 ## Design
 
-* **Style:** Minimalistic — clean layouts, minimal decoration, only essential UI elements
-* **Responsive:** Mobile-first design; the app is primarily used on a phone
+- **Style:** Minimalistic — clean layouts, minimal decoration, only essential UI elements
+- **Responsive:** Mobile-first design; the app is primarily used on a phone

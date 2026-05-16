@@ -4,37 +4,44 @@
 
 ## Database
 
-- [ ] Initialize PostgreSQL database and configure connection
-- [ ] Create `accounts` table (id, name, type: savings|current, balance, created_at)
-- [ ] Create `transactions` table (id, account_id, type: deposit|withdrawal, amount, note, created_at)
-- [ ] Create `goals` table (id, account_id, name, target_amount, deadline, created_at)
-- [ ] Create `loans` table (id, borrower_name, amount, created_at)
-- [ ] Seed initial accounts (Primary Savings, Primary Current, Secondary Current)
+> ORM: Prisma (used for all database access and schema management)
+
+- [x] Initialize PostgreSQL database and configure connection
+- [x] Create `accounts` table (id, name, type: savings|current, balance, created_at)
+- [x] Create `transactions` table (id, account_id, type: deposit|withdrawal, amount, note, created_at)
+- [x] Create `goals` table (id, account_id, name, target_amount, deadline, created_at)
+- [x] Create `loans` table (id, borrower_name, amount, created_at)
+- [x] Seed initial accounts (Primary Savings, Primary Current, Secondary Current)
 
 ---
 
 ## Backend
 
 ### Accounts
+
 - [ ] `GET /accounts` — list all accounts with balances
 - [ ] `GET /accounts/summary` — return total balance aggregated across all accounts
 
 ### Transactions
+
 - [ ] `POST /accounts/:id/deposit` — add money to an account
 - [ ] `POST /accounts/:id/withdraw` — withdraw from an account (require `note` field)
 - [ ] `GET /accounts/:id/transactions` — list transactions for an account (date-sorted)
 
 ### Goals
+
 - [ ] `POST /goals` — create a savings goal (name, target_amount, optional deadline)
 - [ ] `GET /goals` — list all goals
 - [ ] `DELETE /goals/:id` — delete a goal
 
 ### Loans
+
 - [ ] `POST /loans` — create a loan record (borrower_name, amount)
 - [ ] `GET /loans` — list all loans with total loaned amount
 - [ ] `DELETE /loans/:id` — mark loan as returned
 
 ### AI Assistant
+
 - [ ] `POST /ai/recommend` — accept (salary, balance, goal_amount, deadline), return savings recommendations via Claude API
 
 ---
@@ -42,6 +49,7 @@
 ## Frontend
 
 ### Setup
+
 - [ ] Scaffold Angular 19 project inside `frontend/`
 - [ ] Configure HTTP client and environment files (API base URL)
 - [ ] Set up routing with lazy-loaded feature modules
@@ -49,26 +57,31 @@
 - [ ] Establish minimalistic design tokens: neutral color palette, single font, tight spacing scale
 
 ### Dashboard
+
 - [ ] Display total balance aggregated across all accounts
 - [ ] Display each account card with name, type, and balance
 - [ ] Display total loaned amount separately below savings balance
 - [ ] Display net available balance (total savings − total loans)
 
 ### Transactions
+
 - [ ] Deposit form: account selector, amount field, submit button
 - [ ] Withdrawal form: account selector, amount field, required explanation field
 - [ ] Transaction history list per account: type, amount, note, date
 
 ### Goals
+
 - [ ] Create goal form: name, target amount, optional deadline date picker
 - [ ] Goals list view showing name, target, and optional deadline
 - [ ] Delete goal action
 
 ### Loans
+
 - [ ] Create loan form: borrower name, amount
 - [ ] Loans list view showing borrower, amount, date
 - [ ] Mark loan as returned action
 
 ### AI Assistant
+
 - [ ] AI assistant panel/modal with inputs: monthly salary, current balance, goal amount, deadline
 - [ ] Submit to backend and display recommendation text response

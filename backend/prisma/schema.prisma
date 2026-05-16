@@ -1,0 +1,63 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+enum AccountType {
+  savings
+  current
+}
+
+enum TransactionType {
+  deposit
+  withdrawal
+}
+
+model Account {
+  id           Int           @id @default(autoincrement())
+  name         String
+  type         AccountType
+  balance      Decimal       @default(0) @db.Decimal(12, 2)
+  createdAt    DateTime      @default(now()) @map("created_at")
+  transactions Transaction[]
+  goals        Goal[]
+
+  @@map("accounts")
+}
+
+model Transaction {
+  id        Int             @id @default(autoincrement())
+  accountId Int             @map("account_id")
+  type      TransactionType
+  amount    Decimal         @db.Decimal(12, 2)
+  note      String?
+  createdAt DateTime        @default(now()) @map("created_at")
+  account   Account         @relation(fields: [accountId], references: [id])
+
+  @@map("transactions")
+}
+
+model Goal {
+  id           Int       @id @default(autoincrement())
+  accountId    Int       @map("account_id")
+  name         String
+  targetAmount Decimal   @map("target_amount") @db.Decimal(12, 2)
+  deadline     DateTime?
+  createdAt    DateTime  @default(now()) @map("created_at")
+  account      Account   @relation(fields: [accountId], references: [id])
+
+  @@map("goals")
+}
+
+model Loan {
+  id           Int      @id @default(autoincrement())
+  borrowerName String   @map("borrower_name")
+  amount       Decimal  @db.Decimal(12, 2)
+  createdAt    DateTime @default(now()) @map("created_at")
+
+  @@map("loans")
+}
