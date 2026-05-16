@@ -73,3 +73,8 @@ The application will be developed in the following order:
 * **Frontend:** Angular 19
 * **Backend:** NestJS
 * **Database:** PostgreSQL
+
+## Design
+
+* **Style:** Minimalistic — clean layouts, minimal decoration, only essential UI elements
+* **Responsive:** Mobile-first design; the app is primarily used on a phone
