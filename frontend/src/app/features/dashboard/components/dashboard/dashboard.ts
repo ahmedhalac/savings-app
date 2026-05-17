@@ -25,6 +25,9 @@ export class DashboardComponent implements OnInit {
   accounts = signal<Account[]>([]);
   loansData = toSignal(this.loansService.getAll(), { initialValue: { loans: [], totalLoaned: 0 } });
 
+  regularAccounts = computed(() => this.accounts().filter(a => a.type !== 'buffer'));
+  bufferAccount = computed(() => this.accounts().find(a => a.type === 'buffer') ?? null);
+
   totalBalance = computed(() => this.accounts().reduce((sum, a) => sum + Number(a.balance), 0));
   totalLoaned = computed(() => this.loansData().totalLoaned);
   netBalance = computed(() => this.totalBalance() - this.totalLoaned());
@@ -34,6 +37,11 @@ export class DashboardComponent implements OnInit {
   newName = signal('');
   newType = signal<'savings' | 'current'>('savings');
   addStatus = signal<AddStatus>('idle');
+
+  // Add buffer modal
+  showAddBufferModal = signal(false);
+  newBufferName = signal('');
+  addBufferStatus = signal<AddStatus>('idle');
 
   // Delete confirmation modal
   confirmDeleteAccount = signal<Account | null>(null);
@@ -67,6 +75,29 @@ export class DashboardComponent implements OnInit {
         this.loadAccounts();
       },
       error: () => this.addStatus.set('error'),
+    });
+  }
+
+  openAddBufferModal() {
+    this.newBufferName.set('');
+    this.addBufferStatus.set('idle');
+    this.showAddBufferModal.set(true);
+  }
+
+  closeAddBufferModal() {
+    this.showAddBufferModal.set(false);
+  }
+
+  submitAddBuffer() {
+    const name = this.newBufferName().trim();
+    if (!name || this.addBufferStatus() === 'loading') return;
+    this.addBufferStatus.set('loading');
+    this.accountsService.create({ name, type: 'buffer' }).subscribe({
+      next: () => {
+        this.showAddBufferModal.set(false);
+        this.loadAccounts();
+      },
+      error: () => this.addBufferStatus.set('error'),
     });
   }
 

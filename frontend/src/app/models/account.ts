@@ -1,7 +1,7 @@
 export interface Account {
   id: number;
   name: string;
-  type: 'savings' | 'current';
+  type: 'savings' | 'current' | 'buffer';
   balance: number;
   createdAt: string;
 }

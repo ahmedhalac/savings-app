@@ -5,6 +5,6 @@ export class CreateAccountDto {
   @IsNotEmpty()
   name!: string;
 
-  @IsIn(['savings', 'current'])
-  type!: 'savings' | 'current';
+  @IsIn(['savings', 'current', 'buffer'])
+  type!: 'savings' | 'current' | 'buffer';
 }

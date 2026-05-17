@@ -158,6 +158,11 @@
       background: var(--color-accent-subtle);
       color: var(--color-accent);
     }
+
+    &.buffer {
+      background: oklch(93% 0.05 55);
+      color: oklch(42% 0.14 55);
+    }
   }
 
   .account-right {
@@ -190,6 +195,19 @@
       color: oklch(42% 0.18 30);
     }
   }
+}
+
+// Buffer section
+.buffer-section {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.buffer-empty {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
 }
 
 .empty {

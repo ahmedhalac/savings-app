@@ -8,7 +8,7 @@ export class AccountsService {
   private http = inject(HttpClient);
   private base = `${environment.apiBaseUrl}/accounts`;
 
-  create(data: { name: string; type: 'savings' | 'current' }) {
+  create(data: { name: string; type: 'savings' | 'current' | 'buffer' }) {
     return this.http.post<Account>(this.base, data);
   }
 

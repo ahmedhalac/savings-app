@@ -7,7 +7,8 @@
 > ORM: Prisma (used for all database access and schema management)
 
 - [x] Initialize PostgreSQL database and configure connection
-- [x] Create `accounts` table (id, name, type: savings|current, balance, created_at)
+- [x] Create `accounts` table (id, name, type: savings|current|buffer, balance, created_at)
+- [x] Add `buffer` value to `AccountType` enum (migration: `add_buffer_account_type`)
 - [x] Create `transactions` table (id, account_id, type: deposit|withdrawal, amount, note, created_at)
 - [x] Create `goals` table (id, account_id, name, target_amount, deadline, created_at)
 - [x] Create `loans` table (id, borrower_name, amount, created_at)
@@ -23,6 +24,7 @@
 - [x] `GET /accounts` — list all accounts with balances
 - [x] `GET /accounts/summary` — return total balance aggregated across all accounts
 - [x] `DELETE /accounts/:id` — delete account (cascades transactions and goals)
+- [x] Enforce single Buffer account constraint (409 Conflict if one already exists)
 
 ### Transactions
 
@@ -65,6 +67,8 @@
 - [x] Display each account card with name, type, and balance
 - [x] Display total loaned amount separately below savings balance
 - [x] Display net available balance (total savings − total loans)
+- [x] Display Buffer account in a separate section below the main accounts section
+- [x] "Create Buffer Account" action shown only when no buffer account exists
 
 ### Transactions
 

@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { ConflictException, Injectable } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service.js';
 import { CreateAccountDto } from './dto/create-account.dto.js';
 
@@ -6,7 +6,11 @@ import { CreateAccountDto } from './dto/create-account.dto.js';
 export class AccountsService {
   constructor(private readonly prisma: PrismaService) {}
 
-  create(dto: CreateAccountDto) {
+  async create(dto: CreateAccountDto) {
+    if (dto.type === 'buffer') {
+      const existing = await this.prisma.account.findFirst({ where: { type: 'buffer' } });
+      if (existing) throw new ConflictException('A Buffer account already exists');
+    }
     return this.prisma.account.create({ data: { name: dto.name, type: dto.type } });
   }
 

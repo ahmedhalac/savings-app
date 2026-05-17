@@ -27,7 +27,7 @@
     </div>
 
     <div class="accounts-grid">
-      @for (account of accounts(); track account.id) {
+      @for (account of regularAccounts(); track account.id) {
         <div class="account-card">
           <div class="account-header">
             <span class="account-name">{{ account.name }}</span>
@@ -44,6 +44,34 @@
         <p class="empty">{{ t().dashboard.noAccounts }}</p>
       }
     </div>
+  </section>
+
+  <section class="buffer-section">
+    <div class="section-header">
+      <h2 class="section-title">{{ t().dashboard.buffer }}</h2>
+    </div>
+
+    @if (bufferAccount(); as account) {
+      <div class="account-card">
+        <div class="account-header">
+          <span class="account-name">{{ account.name }}</span>
+          <span class="account-type buffer">{{ t().dashboard.buffer }}</span>
+        </div>
+        <div class="account-right">
+          <span class="account-balance">{{ account.balance | number:'1.2-2' }} KM</span>
+          <button class="delete-btn" type="button" (click)="requestDelete(account)">
+            {{ t().dashboard.delete }}
+          </button>
+        </div>
+      </div>
+    } @else {
+      <div class="buffer-empty">
+        <p class="empty">{{ t().dashboard.noBuffer }}</p>
+        <button class="add-account-btn" type="button" (click)="openAddBufferModal()">
+          + {{ t().dashboard.createBuffer }}
+        </button>
+      </div>
+    }
   </section>
 
 </div>
@@ -96,6 +124,47 @@
           (click)="submitAdd()"
         >
           @if (addStatus() === 'loading') { {{ t().dashboard.adding }} } @else { {{ t().dashboard.addAccount }} }
+        </button>
+      </div>
+    </div>
+  </div>
+}
+
+<!-- Add Buffer Modal -->
+@if (showAddBufferModal()) {
+  <div class="modal-backdrop" (click)="closeAddBufferModal()">
+    <div class="modal" (click)="$event.stopPropagation()">
+      <h3 class="modal-title">{{ t().dashboard.createBuffer }}</h3>
+
+      <div class="modal-fields">
+        <div class="field">
+          <label class="label" for="new-buffer-name">{{ t().dashboard.accountName }}</label>
+          <input
+            id="new-buffer-name"
+            class="input"
+            type="text"
+            [ngModel]="newBufferName()"
+            (ngModelChange)="newBufferName.set($event)"
+            placeholder="e.g. Emergency Buffer"
+          />
+        </div>
+      </div>
+
+      @if (addBufferStatus() === 'error') {
+        <p class="feedback error">Something went wrong. Please try again.</p>
+      }
+
+      <div class="modal-actions">
+        <button class="modal-cancel" type="button" (click)="closeAddBufferModal()">
+          {{ t().dashboard.cancel }}
+        </button>
+        <button
+          class="modal-confirm"
+          type="button"
+          [disabled]="!newBufferName().trim() || addBufferStatus() === 'loading'"
+          (click)="submitAddBuffer()"
+        >
+          @if (addBufferStatus() === 'loading') { {{ t().dashboard.adding }} } @else { {{ t().dashboard.createBuffer }} }
         </button>
       </div>
     </div>

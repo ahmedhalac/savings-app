@@ -18,6 +18,9 @@ export interface Translations {
     accountType: string;
     savings: string;
     current: string;
+    buffer: string;
+    createBuffer: string;
+    noBuffer: string;
     cancel: string;
     deleteWarning: string;
     delete: string;
@@ -73,6 +76,7 @@ export interface Translations {
     accountType: string;
     savings: string;
     current: string;
+    buffer: string;
     addAccount: string;
     remove: string;
     removeWarning: string;

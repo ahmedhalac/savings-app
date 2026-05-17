@@ -5,7 +5,7 @@ import { forkJoin } from 'rxjs';
 import { AccountsService } from '../../../accounts/services/accounts.service';
 import { I18nService } from '../../../../core/i18n/i18n.service';
 
-type AccountType = 'savings' | 'current';
+type AccountType = 'savings' | 'current' | 'buffer';
 type Status = 'idle' | 'loading' | 'error';
 
 interface AccountEntry {
