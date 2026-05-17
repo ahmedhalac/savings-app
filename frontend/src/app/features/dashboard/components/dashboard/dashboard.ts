@@ -1,29 +1,92 @@
-import { ChangeDetectionStrategy, Component, computed, inject } from '@angular/core';
-import { toSignal } from '@angular/core/rxjs-interop';
+import { ChangeDetectionStrategy, Component, computed, inject, OnInit, signal } from '@angular/core';
 import { DecimalPipe } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 import { AccountsService } from '../../../accounts/services/accounts.service';
 import { LoansService } from '../../../loans/services/loans.service';
 import { Account } from '../../../../models/account';
 import { I18nService } from '../../../../core/i18n/i18n.service';
+import { toSignal } from '@angular/core/rxjs-interop';
+
+type AddStatus = 'idle' | 'loading' | 'error';
 
 @Component({
   selector: 'app-dashboard',
-  imports: [DecimalPipe],
+  imports: [DecimalPipe, FormsModule],
   templateUrl: './dashboard.html',
   styleUrl: './dashboard.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class DashboardComponent {
+export class DashboardComponent implements OnInit {
   private accountsService = inject(AccountsService);
   private loansService = inject(LoansService);
 
   readonly t = inject(I18nService).t;
 
-  accounts = toSignal(this.accountsService.getAll(), { initialValue: [] as Account[] });
-  summary = toSignal(this.accountsService.getSummary(), { initialValue: { totalBalance: 0 } });
+  accounts = signal<Account[]>([]);
   loansData = toSignal(this.loansService.getAll(), { initialValue: { loans: [], totalLoaned: 0 } });
 
-  totalBalance = computed(() => this.summary().totalBalance);
+  totalBalance = computed(() => this.accounts().reduce((sum, a) => sum + Number(a.balance), 0));
   totalLoaned = computed(() => this.loansData().totalLoaned);
   netBalance = computed(() => this.totalBalance() - this.totalLoaned());
+
+  // Add account modal
+  showAddModal = signal(false);
+  newName = signal('');
+  newType = signal<'savings' | 'current'>('savings');
+  addStatus = signal<AddStatus>('idle');
+
+  // Delete confirmation modal
+  confirmDeleteAccount = signal<Account | null>(null);
+
+  ngOnInit() {
+    this.loadAccounts();
+  }
+
+  loadAccounts() {
+    this.accountsService.getAll().subscribe(accounts => this.accounts.set(accounts));
+  }
+
+  openAddModal() {
+    this.newName.set('');
+    this.newType.set('savings');
+    this.addStatus.set('idle');
+    this.showAddModal.set(true);
+  }
+
+  closeAddModal() {
+    this.showAddModal.set(false);
+  }
+
+  submitAdd() {
+    const name = this.newName().trim();
+    if (!name || this.addStatus() === 'loading') return;
+    this.addStatus.set('loading');
+    this.accountsService.create({ name, type: this.newType() }).subscribe({
+      next: () => {
+        this.showAddModal.set(false);
+        this.loadAccounts();
+      },
+      error: () => this.addStatus.set('error'),
+    });
+  }
+
+  requestDelete(account: Account) {
+    this.confirmDeleteAccount.set(account);
+  }
+
+  cancelDelete() {
+    this.confirmDeleteAccount.set(null);
+  }
+
+  confirmDelete() {
+    const account = this.confirmDeleteAccount();
+    if (!account) return;
+    this.accountsService.delete(account.id).subscribe({
+      next: () => {
+        this.confirmDeleteAccount.set(null);
+        this.loadAccounts();
+      },
+      error: () => this.confirmDeleteAccount.set(null),
+    });
+  }
 }

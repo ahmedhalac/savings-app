@@ -1,0 +1,79 @@
+<div class="setup-page">
+
+  <header class="setup-header">
+    <h1 class="setup-title">{{ t().setup.title }}</h1>
+    <p class="setup-subtitle">{{ t().setup.subtitle }}</p>
+  </header>
+
+  <ul class="entries-list">
+    @for (entry of entries(); track $index) {
+      <li class="entry-card">
+        <div class="entry-fields">
+          <div class="field">
+            <label class="label" [for]="'name-' + $index">{{ t().setup.accountName }}</label>
+            <input
+              [id]="'name-' + $index"
+              class="input"
+              type="text"
+              [value]="entry.name"
+              (input)="updateName($index, $any($event.target).value)"
+              placeholder="e.g. Main Savings"
+            />
+          </div>
+
+          <div class="field">
+            <label class="label" [for]="'type-' + $index">{{ t().setup.accountType }}</label>
+            <select
+              [id]="'type-' + $index"
+              class="input"
+              [value]="entry.type"
+              (change)="updateType($index, $any($event.target).value)"
+            >
+              <option value="savings">{{ t().setup.savings }}</option>
+              <option value="current">{{ t().setup.current }}</option>
+            </select>
+          </div>
+        </div>
+
+        <button
+          class="remove-btn"
+          type="button"
+          [disabled]="entries().length === 1"
+          (click)="requestRemove($index)"
+        >
+          {{ t().setup.remove }}
+        </button>
+      </li>
+    }
+  </ul>
+
+  <button class="add-btn" type="button" (click)="addEntry()">
+    + {{ t().setup.addAccount }}
+  </button>
+
+  @if (status() === 'error') {
+    <p class="feedback error">Something went wrong. Please try again.</p>
+  }
+
+  <button class="submit-btn" type="button" [disabled]="!canSubmit" (click)="submit()">
+    @if (status() === 'loading') { {{ t().setup.completing }} } @else { {{ t().setup.complete }} }
+  </button>
+
+</div>
+
+<!-- Remove confirmation modal -->
+@if (confirmRemoveIndex() !== null) {
+  <div class="modal-backdrop" (click)="cancelRemove()">
+    <div class="modal" (click)="$event.stopPropagation()">
+      <p class="modal-message">{{ t().setup.removeWarning }}</p>
+      <div class="modal-actions">
+        <button class="modal-cancel" type="button" (click)="cancelRemove()">
+          {{ t().setup.cancel }}
+        </button>
+        <button class="modal-confirm" type="button" (click)="confirmRemove()">
+          {{ t().setup.remove }}
+        </button>
+      </div>
+    </div>
+  </div>
+}

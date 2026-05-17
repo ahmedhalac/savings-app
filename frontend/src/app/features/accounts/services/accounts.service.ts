@@ -8,6 +8,14 @@ export class AccountsService {
   private http = inject(HttpClient);
   private base = `${environment.apiBaseUrl}/accounts`;
 
+  create(data: { name: string; type: 'savings' | 'current' }) {
+    return this.http.post<Account>(this.base, data);
+  }
+
+  delete(id: number) {
+    return this.http.delete(`${this.base}/${id}`);
+  }
+
   getAll() {
     return this.http.get<Account[]>(this.base);
   }

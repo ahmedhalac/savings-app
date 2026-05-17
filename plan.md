@@ -25,11 +25,7 @@ The AI assistant helps users optimize their saving strategy to achieve financial
 
 ### Multi-Account Support
 
-The application supports multiple savings and current accounts, including:
-
-- Primary Savings Account
-- Primary Current Account
-- Secondary Current Account (buffer for unexpected expenses)
+The application supports multiple savings and current accounts. On first launch, the user creates their own accounts with custom names and types (savings or current). Any number of accounts can be created during setup; account names are set once and are not editable after creation.
 
 The total savings balance may be distributed across multiple accounts, and the application should aggregate all balances into a single financial overview.
 

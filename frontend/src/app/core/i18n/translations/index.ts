@@ -12,6 +12,15 @@ export interface Translations {
     totalLoaned: string;
     accounts: string;
     noAccounts: string;
+    addAccount: string;
+    adding: string;
+    accountName: string;
+    accountType: string;
+    savings: string;
+    current: string;
+    cancel: string;
+    deleteWarning: string;
+    delete: string;
   };
   transactions: {
     deposit: string;
@@ -56,6 +65,20 @@ export interface Translations {
   };
   ai: {
     title: string;
+  };
+  setup: {
+    title: string;
+    subtitle: string;
+    accountName: string;
+    accountType: string;
+    savings: string;
+    current: string;
+    addAccount: string;
+    remove: string;
+    removeWarning: string;
+    cancel: string;
+    complete: string;
+    completing: string;
   };
 }
 

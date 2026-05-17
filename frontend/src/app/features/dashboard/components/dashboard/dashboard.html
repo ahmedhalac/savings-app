@@ -19,7 +19,12 @@
   </section>
 
   <section class="accounts-section">
-    <h2 class="section-title">{{ t().dashboard.accounts }}</h2>
+    <div class="section-header">
+      <h2 class="section-title">{{ t().dashboard.accounts }}</h2>
+      <button class="add-account-btn" type="button" (click)="openAddModal()">
+        + {{ t().dashboard.addAccount }}
+      </button>
+    </div>
 
     <div class="accounts-grid">
       @for (account of accounts(); track account.id) {
@@ -28,7 +33,12 @@
             <span class="account-name">{{ account.name }}</span>
             <span class="account-type" [class]="account.type">{{ account.type }}</span>
           </div>
-          <span class="account-balance">{{ account.balance | number:'1.2-2' }} KM</span>
+          <div class="account-right">
+            <span class="account-balance">{{ account.balance | number:'1.2-2' }} KM</span>
+            <button class="delete-btn" type="button" (click)="requestDelete(account)">
+              {{ t().dashboard.delete }}
+            </button>
+          </div>
         </div>
       } @empty {
         <p class="empty">{{ t().dashboard.noAccounts }}</p>
@@ -37,3 +47,75 @@
   </section>
 
 </div>
+
+<!-- Add Account Modal -->
+@if (showAddModal()) {
+  <div class="modal-backdrop" (click)="closeAddModal()">
+    <div class="modal" (click)="$event.stopPropagation()">
+      <h3 class="modal-title">{{ t().dashboard.addAccount }}</h3>
+
+      <div class="modal-fields">
+        <div class="field">
+          <label class="label" for="new-account-name">{{ t().dashboard.accountName }}</label>
+          <input
+            id="new-account-name"
+            class="input"
+            type="text"
+            [ngModel]="newName()"
+            (ngModelChange)="newName.set($event)"
+            placeholder="e.g. Emergency Fund"
+          />
+        </div>
+
+        <div class="field">
+          <label class="label" for="new-account-type">{{ t().dashboard.accountType }}</label>
+          <select
+            id="new-account-type"
+            class="input"
+            [ngModel]="newType()"
+            (ngModelChange)="newType.set($event)"
+          >
+            <option value="savings">{{ t().dashboard.savings }}</option>
+            <option value="current">{{ t().dashboard.current }}</option>
+          </select>
+        </div>
+      </div>
+
+      @if (addStatus() === 'error') {
+        <p class="feedback error">Something went wrong. Please try again.</p>
+      }
+
+      <div class="modal-actions">
+        <button class="modal-cancel" type="button" (click)="closeAddModal()">
+          {{ t().dashboard.cancel }}
+        </button>
+        <button
+          class="modal-confirm"
+          type="button"
+          [disabled]="!newName().trim() || addStatus() === 'loading'"
+          (click)="submitAdd()"
+        >
+          @if (addStatus() === 'loading') { {{ t().dashboard.adding }} } @else { {{ t().dashboard.addAccount }} }
+        </button>
+      </div>
+    </div>
+  </div>
+}
+
+<!-- Delete Confirmation Modal -->
+@if (confirmDeleteAccount()) {
+  <div class="modal-backdrop" (click)="cancelDelete()">
+    <div class="modal" (click)="$event.stopPropagation()">
+      <h3 class="modal-title">{{ confirmDeleteAccount()!.name }}</h3>
+      <p class="modal-message">{{ t().dashboard.deleteWarning }}</p>
+      <div class="modal-actions">
+        <button class="modal-cancel" type="button" (click)="cancelDelete()">
+          {{ t().dashboard.cancel }}
+        </button>
+        <button class="modal-confirm danger" type="button" (click)="confirmDelete()">
+          {{ t().dashboard.delete }}
+        </button>
+      </div>
+    </div>
+  </div>
+}

@@ -11,7 +11,7 @@
 - [x] Create `transactions` table (id, account_id, type: deposit|withdrawal, amount, note, created_at)
 - [x] Create `goals` table (id, account_id, name, target_amount, deadline, created_at)
 - [x] Create `loans` table (id, borrower_name, amount, created_at)
-- [x] Seed initial accounts (Primary Savings, Primary Current, Secondary Current)
+- [x] ~~Seed initial accounts~~ — replaced by first-time setup flow
 
 ---
 
@@ -19,8 +19,10 @@
 
 ### Accounts
 
+- [x] `POST /accounts` — create a new account (name, type)
 - [x] `GET /accounts` — list all accounts with balances
 - [x] `GET /accounts/summary` — return total balance aggregated across all accounts
+- [x] `DELETE /accounts/:id` — delete account (cascades transactions and goals)
 
 ### Transactions
 
@@ -55,6 +57,7 @@
 - [x] Set up routing with lazy-loaded feature modules
 - [x] Configure mobile-first responsive styles (viewport meta, base breakpoints)
 - [x] Establish minimalistic design tokens: neutral color palette, single font, tight spacing scale
+- [x] First-time account setup flow (`/setup`) — shown when no accounts exist; guarded once accounts are created
 
 ### Dashboard
 
