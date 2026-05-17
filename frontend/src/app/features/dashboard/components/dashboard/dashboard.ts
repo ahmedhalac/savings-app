@@ -28,9 +28,9 @@ export class DashboardComponent implements OnInit {
   regularAccounts = computed(() => this.accounts().filter(a => a.type !== 'buffer'));
   bufferAccount = computed(() => this.accounts().find(a => a.type === 'buffer') ?? null);
 
-  totalBalance = computed(() => this.regularAccounts().reduce((sum, a) => sum + Number(a.balance), 0));
+  netAvailable = computed(() => this.regularAccounts().reduce((sum, a) => sum + Number(a.balance), 0));
   totalLoaned = computed(() => this.loansData().totalLoaned);
-  netBalance = computed(() => this.totalBalance() - this.totalLoaned());
+  totalBalance = computed(() => this.netAvailable() + this.totalLoaned());
 
   // Add account modal
   showAddModal = signal(false);
