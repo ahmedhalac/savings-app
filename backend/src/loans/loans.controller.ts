@@ -8,14 +8,15 @@ import {
   Post,
 } from '@nestjs/common';
 import { LoansService } from './loans.service.js';
+import { CreateLoanDto } from './dto/create-loan.dto.js';
 
 @Controller('loans')
 export class LoansController {
   constructor(private readonly loansService: LoansService) {}
 
   @Post()
-  create(@Body() body: { borrower_name: string; amount: number }) {
-    return this.loansService.create(body.borrower_name, body.amount);
+  create(@Body() dto: CreateLoanDto) {
+    return this.loansService.create(dto.borrowerName, dto.amount);
   }
 
   @Get()

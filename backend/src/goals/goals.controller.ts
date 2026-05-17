@@ -8,27 +8,15 @@ import {
   Post,
 } from '@nestjs/common';
 import { GoalsService } from './goals.service.js';
+import { CreateGoalDto } from './dto/create-goal.dto.js';
 
 @Controller('goals')
 export class GoalsController {
   constructor(private readonly goalsService: GoalsService) {}
 
   @Post()
-  create(
-    @Body()
-    body: {
-      accountId: number;
-      name: string;
-      target_amount: number;
-      deadline?: string;
-    },
-  ) {
-    return this.goalsService.create(
-      body.accountId,
-      body.name,
-      body.target_amount,
-      body.deadline,
-    );
+  create(@Body() dto: CreateGoalDto) {
+    return this.goalsService.create(dto.accountId, dto.name, dto.targetAmount, dto.deadline);
   }
 
   @Get()
