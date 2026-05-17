@@ -2,6 +2,11 @@ import { Routes } from '@angular/router';
 
 export const routes: Routes = [
   {
+    path: '',
+    loadChildren: () =>
+      import('./features/dashboard/dashboard.routes').then(m => m.DASHBOARD_ROUTES),
+  },
+  {
     path: 'accounts',
     loadChildren: () =>
       import('./features/accounts/accounts.routes').then(m => m.ACCOUNTS_ROUTES),
@@ -26,5 +31,4 @@ export const routes: Routes = [
     loadChildren: () =>
       import('./features/ai/ai.routes').then(m => m.AI_ROUTES),
   },
-  { path: '', redirectTo: 'accounts', pathMatch: 'full' },
 ];

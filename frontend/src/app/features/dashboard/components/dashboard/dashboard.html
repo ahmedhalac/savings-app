@@ -1,0 +1,39 @@
+<div class="dashboard">
+
+  <section class="summary">
+    <div class="total-balance">
+      <span class="label">Total Balance</span>
+      <span class="amount">{{ totalBalance() | currency:'USD':'symbol':'1.2-2' }}</span>
+    </div>
+
+    <div class="meta-row">
+      <div class="meta-item">
+        <span class="meta-label">Net Available</span>
+        <span class="meta-value">{{ netBalance() | currency:'USD':'symbol':'1.2-2' }}</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-label">Total Loaned</span>
+        <span class="meta-value loaned">{{ totalLoaned() | currency:'USD':'symbol':'1.2-2' }}</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="accounts-section">
+    <h2 class="section-title">Accounts</h2>
+
+    <div class="accounts-grid">
+      @for (account of accounts(); track account.id) {
+        <div class="account-card">
+          <div class="account-header">
+            <span class="account-name">{{ account.name }}</span>
+            <span class="account-type" [class]="account.type">{{ account.type }}</span>
+          </div>
+          <span class="account-balance">{{ account.balance | currency:'USD':'symbol':'1.2-2' }}</span>
+        </div>
+      } @empty {
+        <p class="empty">No accounts found.</p>
+      }
+    </div>
+  </section>
+
+</div>
