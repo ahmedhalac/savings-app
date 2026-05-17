@@ -24,21 +24,21 @@
 
 ### Transactions
 
-- [ ] `POST /accounts/:id/deposit` — add money to an account
-- [ ] `POST /accounts/:id/withdraw` — withdraw from an account (require `note` field)
-- [ ] `GET /accounts/:id/transactions` — list transactions for an account (date-sorted)
+- [x] `POST /accounts/:id/deposit` — add money to an account
+- [x] `POST /accounts/:id/withdraw` — withdraw from an account (require `note` field)
+- [x] `GET /accounts/:id/transactions` — list transactions for an account (date-sorted)
 
 ### Goals
 
-- [ ] `POST /goals` — create a savings goal (name, target_amount, optional deadline)
-- [ ] `GET /goals` — list all goals
-- [ ] `DELETE /goals/:id` — delete a goal
+- [x] `POST /goals` — create a savings goal (name, target_amount, optional deadline)
+- [x] `GET /goals` — list all goals
+- [x] `DELETE /goals/:id` — delete a goal
 
 ### Loans
 
-- [ ] `POST /loans` — create a loan record (borrower_name, amount)
-- [ ] `GET /loans` — list all loans with total loaned amount
-- [ ] `DELETE /loans/:id` — mark loan as returned
+- [x] `POST /loans` — create a loan record (borrower_name, amount)
+- [x] `GET /loans` — list all loans with total loaned amount
+- [x] `DELETE /loans/:id` — mark loan as returned
 
 ### AI Assistant
 
@@ -50,11 +50,11 @@
 
 ### Setup
 
-- [ ] Scaffold Angular 19 project inside `frontend/`
-- [ ] Configure HTTP client and environment files (API base URL)
-- [ ] Set up routing with lazy-loaded feature modules
-- [ ] Configure mobile-first responsive styles (viewport meta, base breakpoints)
-- [ ] Establish minimalistic design tokens: neutral color palette, single font, tight spacing scale
+- [x] Scaffold Angular 20 project inside `frontend/`
+- [x] Configure HTTP client and environment files (API base URL)
+- [x] Set up routing with lazy-loaded feature modules
+- [x] Configure mobile-first responsive styles (viewport meta, base breakpoints)
+- [x] Establish minimalistic design tokens: neutral color palette, single font, tight spacing scale
 
 ### Dashboard
 
