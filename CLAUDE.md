@@ -71,5 +71,5 @@ savings-app/
 ### Domain rules (from `plan.md`)
 - Loans are tracked separately and do **not** reduce the savings balance display; show net = savings − loans
 - Withdrawals require a mandatory `note` (explanation field)
-- Dashboard aggregates balances across all accounts (including buffer) into one total
-- **Buffer account**: a single special-purpose account for unexpected expenses. Only one may exist — backend enforces 409 Conflict on duplicate. Displayed as a separate section on the dashboard below the main accounts; participates in transactions/history like any other account.
+- Dashboard aggregates balances across savings/current accounts only — buffer is excluded from Total Balance and Net Available
+- **Buffer account**: a single special-purpose account for unexpected expenses. Only one may exist — backend enforces 409 Conflict on duplicate. Displayed as a separate section on the dashboard below the main accounts; excluded from all summary figures; participates in transactions/history like any other account.

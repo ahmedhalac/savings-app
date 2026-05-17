@@ -35,7 +35,8 @@ A single dedicated Buffer account can be created to track unexpected expenses (e
 
 - Only one Buffer account may exist at a time — the backend enforces this with a 409 Conflict response.
 - The Buffer account is displayed as a separate section on the dashboard, below the main accounts section.
-- It participates in the total balance aggregation and supports the full transaction history (deposit/withdraw) available in the Transactions page.
+- It is **excluded** from Total Balance and Net Available — it is completely separate from savings tracking.
+- It supports the full transaction history (deposit/withdraw) available in the Transactions page.
 - Buffer accounts cannot be created via the standard "Add Account" flow; they have a dedicated "Create Buffer Account" action in the Buffer section.
 
 ### Loan Tracking

@@ -28,7 +28,7 @@ export class DashboardComponent implements OnInit {
   regularAccounts = computed(() => this.accounts().filter(a => a.type !== 'buffer'));
   bufferAccount = computed(() => this.accounts().find(a => a.type === 'buffer') ?? null);
 
-  totalBalance = computed(() => this.accounts().reduce((sum, a) => sum + Number(a.balance), 0));
+  totalBalance = computed(() => this.regularAccounts().reduce((sum, a) => sum + Number(a.balance), 0));
   totalLoaned = computed(() => this.loansData().totalLoaned);
   netBalance = computed(() => this.totalBalance() - this.totalLoaned());
 
