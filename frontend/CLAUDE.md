@@ -44,3 +44,27 @@ src/app/
 - State: Angular signals and signal stores — no NgRx, no BehaviorSubject
 - Change detection: zoneless-friendly; `provideZoneChangeDetection({ eventCoalescing: true })` is already wired
 - Components follow the domain boundary of the backend API: accounts, transactions, goals, loans, ai
+
+## Internationalization (i18n)
+
+- Two locales: `en-US` (American English, default) and `bs` (Bosnian)
+- NO `@angular/localize` — custom signal-based service only, zero extra dependencies
+- Service: `core/i18n/i18n.service.ts` — `providedIn: 'root'`, no registration needed
+- Translation files: `core/i18n/translations/en-US.ts` and `core/i18n/translations/bs.ts`
+- Type contract: `core/i18n/translations/index.ts` exports the `Translations` interface — both locale files must satisfy it
+- Language picker component: `core/i18n/lang-picker/lang-picker.ts` — mounted in `app.html` top-bar
+- Locale persisted to `localStorage` under key `savings-locale`
+
+### Pattern for all components
+
+In the `.ts` file:
+```typescript
+readonly t = inject(I18nService).t;
+```
+
+In the template — access strings directly (full TypeScript type safety, no magic strings):
+```html
+{{ t().feature.key }}
+```
+
+Never hardcode UI strings in templates. All user-visible strings live in the translation files.

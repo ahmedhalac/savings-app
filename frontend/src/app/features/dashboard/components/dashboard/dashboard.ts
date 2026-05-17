@@ -4,6 +4,7 @@ import { DecimalPipe } from '@angular/common';
 import { AccountsService } from '../../../accounts/services/accounts.service';
 import { LoansService } from '../../../loans/services/loans.service';
 import { Account } from '../../../../models/account';
+import { I18nService } from '../../../../core/i18n/i18n.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -15,6 +16,8 @@ import { Account } from '../../../../models/account';
 export class DashboardComponent {
   private accountsService = inject(AccountsService);
   private loansService = inject(LoansService);
+
+  readonly t = inject(I18nService).t;
 
   accounts = toSignal(this.accountsService.getAll(), { initialValue: [] as Account[] });
   summary = toSignal(this.accountsService.getSummary(), { initialValue: { totalBalance: 0 } });

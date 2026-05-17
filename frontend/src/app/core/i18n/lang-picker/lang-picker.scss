@@ -1,0 +1,32 @@
+.lang-picker {
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
+}
+
+.lang-btn {
+  background: none;
+  border: none;
+  padding: var(--space-1) var(--space-2);
+  font-size: var(--text-sm);
+  font-weight: var(--font-medium);
+  color: var(--color-gray-500);
+  cursor: pointer;
+  border-radius: var(--radius-sm);
+  transition: color 0.15s ease;
+
+  &:hover {
+    color: var(--color-gray-900);
+  }
+
+  &.active {
+    color: var(--color-accent);
+    font-weight: var(--font-semibold);
+  }
+}
+
+.lang-sep {
+  color: var(--color-gray-300);
+  font-size: var(--text-sm);
+  user-select: none;
+}

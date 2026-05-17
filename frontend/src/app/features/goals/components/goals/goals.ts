@@ -6,6 +6,7 @@ import { AccountsService } from '../../../accounts/services/accounts.service';
 import { GoalsService } from '../../services/goals.service';
 import { Account } from '../../../../models/account';
 import { Goal } from '../../../../models/goal';
+import { I18nService } from '../../../../core/i18n/i18n.service';
 
 type Tab = 'list' | 'create';
 type Status = 'idle' | 'loading' | 'success' | 'error';
@@ -21,6 +22,8 @@ export class GoalsComponent implements OnInit {
   private accountsService = inject(AccountsService);
   private goalsService = inject(GoalsService);
   private fb = inject(FormBuilder);
+
+  readonly t = inject(I18nService).t;
 
   accounts = toSignal(this.accountsService.getAll(), { initialValue: [] as Account[] });
   goals = signal<Goal[]>([]);

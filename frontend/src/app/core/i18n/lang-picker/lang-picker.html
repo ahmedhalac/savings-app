@@ -1,0 +1,17 @@
+<div class="lang-picker">
+  <button
+    class="lang-btn"
+    [class.active]="currentLocale() === 'en-US'"
+    (click)="setLocale('en-US')"
+    aria-label="Switch to English">
+    EN
+  </button>
+  <span class="lang-sep" aria-hidden="true">/</span>
+  <button
+    class="lang-btn"
+    [class.active]="currentLocale() === 'bs'"
+    (click)="setLocale('bs')"
+    aria-label="Prebaci na bosanski">
+    BS
+  </button>
+</div>

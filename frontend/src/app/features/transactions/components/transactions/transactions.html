@@ -3,10 +3,10 @@
   <!-- Tab Bar -->
   <div class="tab-bar">
     <button class="tab-btn" [class.active]="activeTab() === 'deposit'" (click)="setTab('deposit')">
-      Deposit
+      {{ t().transactions.deposit }}
     </button>
     <button class="tab-btn" [class.active]="activeTab() === 'withdraw'" (click)="setTab('withdraw')">
-      Withdraw
+      {{ t().transactions.withdraw }}
     </button>
   </div>
 
@@ -14,9 +14,9 @@
   @if (activeTab() === 'deposit') {
     <form class="tx-form" [formGroup]="depositForm" (ngSubmit)="submitDeposit()">
       <div class="field">
-        <label class="label" for="deposit-account">Account</label>
+        <label class="label" for="deposit-account">{{ t().transactions.account }}</label>
         <select id="deposit-account" class="input" formControlName="accountId">
-          <option [value]="null">Select account</option>
+          <option [value]="null">{{ t().transactions.selectAccount }}</option>
           @for (account of accounts(); track account.id) {
             <option [value]="account.id">{{ account.name }}</option>
           }
@@ -24,7 +24,7 @@
       </div>
 
       <div class="field">
-        <label class="label" for="deposit-amount">Amount</label>
+        <label class="label" for="deposit-amount">{{ t().transactions.amount }}</label>
         <input id="deposit-amount" class="input" type="number" formControlName="amount"
                placeholder="0.00" min="0.01" step="0.01" />
       </div>
@@ -33,12 +33,12 @@
         <p class="feedback error">{{ errorMessage() }}</p>
       }
       @if (submitStatus() === 'success') {
-        <p class="feedback success">Deposit successful!</p>
+        <p class="feedback success">{{ t().transactions.depositSuccess }}</p>
       }
 
       <button class="submit-btn" type="submit"
               [disabled]="depositForm.invalid || submitStatus() === 'loading'">
-        @if (submitStatus() === 'loading') { Depositing… } @else { Deposit }
+        @if (submitStatus() === 'loading') { {{ t().transactions.depositing }} } @else { {{ t().transactions.deposit }} }
       </button>
     </form>
   }
@@ -47,9 +47,9 @@
   @if (activeTab() === 'withdraw') {
     <form class="tx-form" [formGroup]="withdrawForm" (ngSubmit)="submitWithdraw()">
       <div class="field">
-        <label class="label" for="withdraw-account">Account</label>
+        <label class="label" for="withdraw-account">{{ t().transactions.account }}</label>
         <select id="withdraw-account" class="input" formControlName="accountId">
-          <option [value]="null">Select account</option>
+          <option [value]="null">{{ t().transactions.selectAccount }}</option>
           @for (account of accounts(); track account.id) {
             <option [value]="account.id">{{ account.name }}</option>
           }
@@ -57,13 +57,13 @@
       </div>
 
       <div class="field">
-        <label class="label" for="withdraw-amount">Amount</label>
+        <label class="label" for="withdraw-amount">{{ t().transactions.amount }}</label>
         <input id="withdraw-amount" class="input" type="number" formControlName="amount"
                placeholder="0.00" min="0.01" step="0.01" />
       </div>
 
       <div class="field">
-        <label class="label" for="withdraw-note">Explanation</label>
+        <label class="label" for="withdraw-note">{{ t().transactions.explanation }}</label>
         <textarea id="withdraw-note" class="input textarea" formControlName="note"
                   placeholder="Why are you withdrawing?" rows="3"></textarea>
       </div>
@@ -72,29 +72,29 @@
         <p class="feedback error">{{ errorMessage() }}</p>
       }
       @if (submitStatus() === 'success') {
-        <p class="feedback success">Withdrawal successful!</p>
+        <p class="feedback success">{{ t().transactions.withdrawSuccess }}</p>
       }
 
       <button class="submit-btn" type="submit"
               [disabled]="withdrawForm.invalid || submitStatus() === 'loading'">
-        @if (submitStatus() === 'loading') { Withdrawing… } @else { Withdraw }
+        @if (submitStatus() === 'loading') { {{ t().transactions.withdrawing }} } @else { {{ t().transactions.withdraw }} }
       </button>
     </form>
   }
 
   <!-- History -->
   <section class="history">
-    <h2 class="section-title">Transaction History</h2>
+    <h2 class="section-title">{{ t().transactions.history }}</h2>
 
     <select class="input" (change)="onSelectHistoryAccount($event)">
-      <option value="">Select account</option>
+      <option value="">{{ t().transactions.selectAccount }}</option>
       @for (account of accounts(); track account.id) {
         <option [value]="account.id">{{ account.name }}</option>
       }
     </select>
 
     @if (selectedAccountId() !== null && transactions().length === 0) {
-      <p class="empty">No transactions yet.</p>
+      <p class="empty">{{ t().transactions.noTransactions }}</p>
     }
 
     @if (transactions().length > 0) {
@@ -102,7 +102,7 @@
         @for (tx of transactions(); track tx.id) {
           <li class="tx-item">
             <div class="tx-left">
-              <span class="tx-badge" [class]="tx.type">{{ tx.type }}</span>
+              <span class="tx-badge" [class]="tx.type">{{ txTypeLabel(tx.type) }}</span>
               @if (tx.note) {
                 <span class="tx-note">{{ tx.note }}</span>
               }

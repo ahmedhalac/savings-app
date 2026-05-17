@@ -2,24 +2,24 @@
 
   <!-- Summary Bar -->
   <div class="summary-bar">
-    <span class="summary-label">Total Loaned</span>
+    <span class="summary-label">{{ t().loans.totalLoaned }}</span>
     <span class="summary-amount">{{ totalLoaned() | number:'1.2-2' }} KM</span>
   </div>
 
   <!-- Tab Bar -->
   <div class="tab-bar">
     <button class="tab-btn" [class.active]="activeTab() === 'list'" (click)="setTab('list')">
-      Loans
+      {{ t().loans.loans }}
     </button>
     <button class="tab-btn" [class.active]="activeTab() === 'create'" (click)="setTab('create')">
-      New Loan
+      {{ t().loans.newLoan }}
     </button>
   </div>
 
   <!-- Loans List -->
   @if (activeTab() === 'list') {
     @if (loans().length === 0) {
-      <p class="empty">No loans recorded yet.</p>
+      <p class="empty">{{ t().loans.noLoans }}</p>
     } @else {
       <ul class="loans-list">
         @for (loan of loans(); track loan.id) {
@@ -30,7 +30,7 @@
             </div>
             <div class="loan-right">
               <span class="loan-amount">{{ loan.amount | number:'1.2-2' }} KM</span>
-              <button class="delete-btn" (click)="deleteLoan(loan.id)">Mark Returned</button>
+              <button class="delete-btn" (click)="deleteLoan(loan.id)">{{ t().loans.markReturned }}</button>
             </div>
           </li>
         }
@@ -42,13 +42,13 @@
   @if (activeTab() === 'create') {
     <form class="loan-form" [formGroup]="createForm" (ngSubmit)="submitCreate()">
       <div class="field">
-        <label class="label" for="borrower-name">Borrower Name</label>
+        <label class="label" for="borrower-name">{{ t().loans.borrowerName }}</label>
         <input id="borrower-name" class="input" type="text" formControlName="borrowerName"
                placeholder="e.g. John Doe" />
       </div>
 
       <div class="field">
-        <label class="label" for="loan-amount">Amount</label>
+        <label class="label" for="loan-amount">{{ t().loans.amount }}</label>
         <input id="loan-amount" class="input" type="number" formControlName="amount"
                placeholder="0.00" min="0.01" step="0.01" />
       </div>
@@ -57,12 +57,12 @@
         <p class="feedback error">{{ errorMessage() }}</p>
       }
       @if (submitStatus() === 'success') {
-        <p class="feedback success">Loan recorded!</p>
+        <p class="feedback success">{{ t().loans.loanRecorded }}</p>
       }
 
       <button class="submit-btn" type="submit"
               [disabled]="createForm.invalid || submitStatus() === 'loading'">
-        @if (submitStatus() === 'loading') { Recording… } @else { Record Loan }
+        @if (submitStatus() === 'loading') { {{ t().loans.recording }} } @else { {{ t().loans.recordLoan }} }
       </button>
     </form>
   }

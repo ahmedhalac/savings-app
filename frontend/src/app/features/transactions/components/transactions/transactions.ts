@@ -6,6 +6,7 @@ import { AccountsService } from '../../../accounts/services/accounts.service';
 import { TransactionsService } from '../../services/transactions.service';
 import { Account } from '../../../../models/account';
 import { Transaction } from '../../../../models/transaction';
+import { I18nService } from '../../../../core/i18n/i18n.service';
 
 type Tab = 'deposit' | 'withdraw';
 type Status = 'idle' | 'loading' | 'success' | 'error';
@@ -21,6 +22,12 @@ export class TransactionsComponent {
   private accountsService = inject(AccountsService);
   private transactionsService = inject(TransactionsService);
   private fb = inject(FormBuilder);
+
+  readonly t = inject(I18nService).t;
+
+  txTypeLabel(type: string): string {
+    return type === 'deposit' ? this.t().transactions.deposit : this.t().transactions.withdraw;
+  }
 
   accounts = toSignal(this.accountsService.getAll(), { initialValue: [] as Account[] });
 

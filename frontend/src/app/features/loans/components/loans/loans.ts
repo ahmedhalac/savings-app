@@ -3,6 +3,7 @@ import { DatePipe, DecimalPipe } from '@angular/common';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { LoansService } from '../../services/loans.service';
 import { Loan } from '../../../../models/loan';
+import { I18nService } from '../../../../core/i18n/i18n.service';
 
 type Tab = 'list' | 'create';
 type Status = 'idle' | 'loading' | 'success' | 'error';
@@ -17,6 +18,8 @@ type Status = 'idle' | 'loading' | 'success' | 'error';
 export class LoansComponent implements OnInit {
   private loansService = inject(LoansService);
   private fb = inject(FormBuilder);
+
+  readonly t = inject(I18nService).t;
 
   loans = signal<Loan[]>([]);
   totalLoaned = signal(0);
