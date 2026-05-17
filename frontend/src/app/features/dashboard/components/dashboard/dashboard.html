@@ -1,21 +1,29 @@
 <div class="dashboard">
 
   <section class="summary">
-    <div class="total-balance">
-      <span class="label">{{ t().dashboard.totalBalance }}</span>
-      <span class="amount">{{ totalBalance() | number:'1.2-2' }} KM</span>
-    </div>
+    @if (pageLoading()) {
+      <div class="skeleton summary-skeleton"></div>
+      <div class="meta-row">
+        <div class="skeleton meta-skeleton"></div>
+        <div class="skeleton meta-skeleton"></div>
+      </div>
+    } @else {
+      <div class="total-balance">
+        <span class="label">{{ t().dashboard.totalBalance }}</span>
+        <span class="amount">{{ totalBalance() | number:'1.2-2' }} KM</span>
+      </div>
 
-    <div class="meta-row">
-      <div class="meta-item">
-        <span class="meta-label">{{ t().dashboard.netAvailable }}</span>
-        <span class="meta-value">{{ netAvailable() | number:'1.2-2' }} KM</span>
+      <div class="meta-row">
+        <div class="meta-item">
+          <span class="meta-label">{{ t().dashboard.netAvailable }}</span>
+          <span class="meta-value">{{ netAvailable() | number:'1.2-2' }} KM</span>
+        </div>
+        <div class="meta-item">
+          <span class="meta-label">{{ t().dashboard.totalLoaned }}</span>
+          <span class="meta-value loaned">{{ totalLoaned() | number:'1.2-2' }} KM</span>
+        </div>
       </div>
-      <div class="meta-item">
-        <span class="meta-label">{{ t().dashboard.totalLoaned }}</span>
-        <span class="meta-value loaned">{{ totalLoaned() | number:'1.2-2' }} KM</span>
-      </div>
-    </div>
+    }
   </section>
 
   <section class="accounts-section">
@@ -27,21 +35,26 @@
     </div>
 
     <div class="accounts-grid">
-      @for (account of regularAccounts(); track account.id) {
-        <div class="account-card">
-          <div class="account-header">
-            <span class="account-name">{{ account.name }}</span>
-            <span class="account-type" [class]="account.type">{{ account.type }}</span>
+      @if (accountsLoading()) {
+        <div class="skeleton account-card-skeleton"></div>
+        <div class="skeleton account-card-skeleton"></div>
+      } @else {
+        @for (account of regularAccounts(); track account.id) {
+          <div class="account-card">
+            <div class="account-header">
+              <span class="account-name">{{ account.name }}</span>
+              <span class="account-type" [class]="account.type">{{ account.type }}</span>
+            </div>
+            <div class="account-right">
+              <span class="account-balance">{{ account.balance | number:'1.2-2' }} KM</span>
+              <button class="delete-btn" type="button" (click)="requestDelete(account)">
+                {{ t().dashboard.delete }}
+              </button>
+            </div>
           </div>
-          <div class="account-right">
-            <span class="account-balance">{{ account.balance | number:'1.2-2' }} KM</span>
-            <button class="delete-btn" type="button" (click)="requestDelete(account)">
-              {{ t().dashboard.delete }}
-            </button>
-          </div>
-        </div>
-      } @empty {
-        <p class="empty">{{ t().dashboard.noAccounts }}</p>
+        } @empty {
+          <p class="empty">{{ t().dashboard.noAccounts }}</p>
+        }
       }
     </div>
   </section>
@@ -51,7 +64,9 @@
       <h2 class="section-title">{{ t().dashboard.buffer }}</h2>
     </div>
 
-    @if (bufferAccount(); as account) {
+    @if (accountsLoading()) {
+      <div class="skeleton account-card-skeleton"></div>
+    } @else if (bufferAccount(); as account) {
       <div class="account-card">
         <div class="account-header">
           <span class="account-name">{{ account.name }}</span>

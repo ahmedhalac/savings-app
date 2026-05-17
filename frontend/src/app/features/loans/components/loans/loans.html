@@ -1,10 +1,14 @@
 <div class="loans-page">
 
   <!-- Summary Bar -->
-  <div class="summary-bar">
-    <span class="summary-label">{{ t().loans.totalLoaned }}</span>
-    <span class="summary-amount">{{ totalLoaned() | number:'1.2-2' }} KM</span>
-  </div>
+  @if (loansLoading()) {
+    <div class="skeleton summary-bar-skeleton"></div>
+  } @else {
+    <div class="summary-bar">
+      <span class="summary-label">{{ t().loans.totalLoaned }}</span>
+      <span class="summary-amount">{{ totalLoaned() | number:'1.2-2' }} KM</span>
+    </div>
+  }
 
   <!-- Tab Bar -->
   <div class="tab-bar">
@@ -18,7 +22,13 @@
 
   <!-- Loans List -->
   @if (activeTab() === 'list') {
-    @if (loans().length === 0) {
+    @if (loansLoading()) {
+      <div class="skeleton-list">
+        <div class="skeleton list-item-skeleton"></div>
+        <div class="skeleton list-item-skeleton"></div>
+        <div class="skeleton list-item-skeleton"></div>
+      </div>
+    } @else if (loans().length === 0) {
       <p class="empty">{{ t().loans.noLoans }}</p>
     } @else {
       <ul class="loans-list">

@@ -197,3 +197,18 @@
   font-size: var(--text-sm);
   color: var(--color-gray-600);
 }
+
+// Skeleton loaders
+.skeleton-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.list-item-skeleton {
+  height: 60px;
+}
+
+.summary-bar-skeleton {
+  height: 64px;
+}

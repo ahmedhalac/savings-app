@@ -351,3 +351,22 @@
     }
   }
 }
+
+// Skeleton loaders
+.summary-skeleton {
+  height: 112px;
+}
+
+.meta-skeleton {
+  height: 72px;
+}
+
+.account-card-skeleton {
+  height: 76px;
+}
+
+.skeleton-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}

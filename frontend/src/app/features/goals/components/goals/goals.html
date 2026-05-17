@@ -12,7 +12,13 @@
 
   <!-- Goals List -->
   @if (activeTab() === 'list') {
-    @if (goals().length === 0) {
+    @if (goalsLoading()) {
+      <div class="skeleton-list">
+        <div class="skeleton list-item-skeleton"></div>
+        <div class="skeleton list-item-skeleton"></div>
+        <div class="skeleton list-item-skeleton"></div>
+      </div>
+    } @else if (goals().length === 0) {
       <p class="empty">{{ t().goals.noGoals }}</p>
     } @else {
       <ul class="goals-list">

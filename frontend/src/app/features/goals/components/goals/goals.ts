@@ -27,6 +27,7 @@ export class GoalsComponent implements OnInit {
 
   accounts = toSignal(this.accountsService.getAll(), { initialValue: [] as Account[] });
   goals = signal<Goal[]>([]);
+  goalsLoading = signal(true);
   activeTab = signal<Tab>('list');
   submitStatus = signal<Status>('idle');
   errorMessage = signal('');
@@ -49,7 +50,10 @@ export class GoalsComponent implements OnInit {
   }
 
   loadGoals() {
-    this.goalsService.getAll().subscribe(goals => this.goals.set(goals));
+    this.goalsService.getAll().subscribe(goals => {
+      this.goals.set(goals);
+      this.goalsLoading.set(false);
+    });
   }
 
   submitCreate() {

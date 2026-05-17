@@ -6,6 +6,7 @@ import { LoansService } from '../../../loans/services/loans.service';
 import { Account } from '../../../../models/account';
 import { I18nService } from '../../../../core/i18n/i18n.service';
 import { toSignal } from '@angular/core/rxjs-interop';
+import { tap } from 'rxjs';
 
 type AddStatus = 'idle' | 'loading' | 'error';
 
@@ -23,8 +24,14 @@ export class DashboardComponent implements OnInit {
   readonly t = inject(I18nService).t;
 
   accounts = signal<Account[]>([]);
-  loansData = toSignal(this.loansService.getAll(), { initialValue: { loans: [], totalLoaned: 0 } });
+  accountsLoading = signal(true);
+  loansLoading = signal(true);
+  loansData = toSignal(
+    this.loansService.getAll().pipe(tap(() => this.loansLoading.set(false))),
+    { initialValue: { loans: [], totalLoaned: 0 } }
+  );
 
+  pageLoading = computed(() => this.accountsLoading() || this.loansLoading());
   regularAccounts = computed(() => this.accounts().filter(a => a.type !== 'buffer'));
   bufferAccount = computed(() => this.accounts().find(a => a.type === 'buffer') ?? null);
 
@@ -51,7 +58,10 @@ export class DashboardComponent implements OnInit {
   }
 
   loadAccounts() {
-    this.accountsService.getAll().subscribe(accounts => this.accounts.set(accounts));
+    this.accountsService.getAll().subscribe(accounts => {
+      this.accounts.set(accounts);
+      this.accountsLoading.set(false);
+    });
   }
 
   openAddModal() {

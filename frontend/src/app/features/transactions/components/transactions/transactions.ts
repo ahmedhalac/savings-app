@@ -34,6 +34,7 @@ export class TransactionsComponent {
   activeTab = signal<Tab>('deposit');
   selectedAccountId = signal<number | null>(null);
   transactions = signal<Transaction[]>([]);
+  txLoading = signal(false);
   submitStatus = signal<Status>('idle');
   errorMessage = signal('');
 
@@ -59,7 +60,11 @@ export class TransactionsComponent {
     const id = raw ? +raw : null;
     this.selectedAccountId.set(id);
     if (id) {
-      this.transactionsService.getByAccount(id).subscribe(txs => this.transactions.set(txs));
+      this.txLoading.set(true);
+      this.transactionsService.getByAccount(id).subscribe(txs => {
+        this.transactions.set(txs);
+        this.txLoading.set(false);
+      });
     } else {
       this.transactions.set([]);
     }
@@ -101,7 +106,11 @@ export class TransactionsComponent {
 
   private refreshHistoryIfMatch(accountId: number) {
     if (this.selectedAccountId() === accountId) {
-      this.transactionsService.getByAccount(accountId).subscribe(txs => this.transactions.set(txs));
+      this.txLoading.set(true);
+      this.transactionsService.getByAccount(accountId).subscribe(txs => {
+        this.transactions.set(txs);
+        this.txLoading.set(false);
+      });
     }
   }
 }

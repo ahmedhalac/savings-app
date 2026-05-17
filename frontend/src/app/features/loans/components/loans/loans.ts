@@ -23,6 +23,7 @@ export class LoansComponent implements OnInit {
 
   loans = signal<Loan[]>([]);
   totalLoaned = signal(0);
+  loansLoading = signal(true);
   activeTab = signal<Tab>('list');
   submitStatus = signal<Status>('idle');
   errorMessage = signal('');
@@ -46,6 +47,7 @@ export class LoansComponent implements OnInit {
     this.loansService.getAll().subscribe(res => {
       this.loans.set(res.loans);
       this.totalLoaned.set(res.totalLoaned);
+      this.loansLoading.set(false);
     });
   }
 
