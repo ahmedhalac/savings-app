@@ -71,15 +71,15 @@
 
 ### Goals
 
-- [ ] Create goal form: name, target amount, optional deadline date picker
-- [ ] Goals list view showing name, target, and optional deadline
-- [ ] Delete goal action
+- [x] Create goal form: name, target amount, optional deadline date picker
+- [x] Goals list view showing name, target, and optional deadline
+- [x] Delete goal action
 
 ### Loans
 
-- [ ] Create loan form: borrower name, amount
-- [ ] Loans list view showing borrower, amount, date
-- [ ] Mark loan as returned action
+- [x] Create loan form: borrower name, amount
+- [x] Loans list view showing borrower, amount, date
+- [x] Mark loan as returned action
 
 ### AI Assistant
 

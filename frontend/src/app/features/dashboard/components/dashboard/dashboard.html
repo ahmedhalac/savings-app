@@ -3,17 +3,17 @@
   <section class="summary">
     <div class="total-balance">
       <span class="label">Total Balance</span>
-      <span class="amount">{{ totalBalance() | currency:'USD':'symbol':'1.2-2' }}</span>
+      <span class="amount">{{ totalBalance() | number:'1.2-2' }} KM</span>
     </div>
 
     <div class="meta-row">
       <div class="meta-item">
         <span class="meta-label">Net Available</span>
-        <span class="meta-value">{{ netBalance() | currency:'USD':'symbol':'1.2-2' }}</span>
+        <span class="meta-value">{{ netBalance() | number:'1.2-2' }} KM</span>
       </div>
       <div class="meta-item">
         <span class="meta-label">Total Loaned</span>
-        <span class="meta-value loaned">{{ totalLoaned() | currency:'USD':'symbol':'1.2-2' }}</span>
+        <span class="meta-value loaned">{{ totalLoaned() | number:'1.2-2' }} KM</span>
       </div>
     </div>
   </section>
@@ -28,7 +28,7 @@
             <span class="account-name">{{ account.name }}</span>
             <span class="account-type" [class]="account.type">{{ account.type }}</span>
           </div>
-          <span class="account-balance">{{ account.balance | currency:'USD':'symbol':'1.2-2' }}</span>
+          <span class="account-balance">{{ account.balance | number:'1.2-2' }} KM</span>
         </div>
       } @empty {
         <p class="empty">No accounts found.</p>

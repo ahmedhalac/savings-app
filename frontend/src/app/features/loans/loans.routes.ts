@@ -1,6 +1,6 @@
 import { Routes } from '@angular/router';
-import { LoansShellComponent } from './components/loans-shell/loans-shell';
+import { LoansComponent } from './components/loans/loans';
 
 export const LOANS_ROUTES: Routes = [
-  { path: '', component: LoansShellComponent },
+  { path: '', component: LoansComponent },
 ];

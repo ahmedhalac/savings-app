@@ -1,13 +1,13 @@
 import { ChangeDetectionStrategy, Component, computed, inject } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
-import { CurrencyPipe } from '@angular/common';
+import { DecimalPipe } from '@angular/common';
 import { AccountsService } from '../../../accounts/services/accounts.service';
 import { LoansService } from '../../../loans/services/loans.service';
 import { Account } from '../../../../models/account';
 
 @Component({
   selector: 'app-dashboard',
-  imports: [CurrencyPipe],
+  imports: [DecimalPipe],
   templateUrl: './dashboard.html',
   styleUrl: './dashboard.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

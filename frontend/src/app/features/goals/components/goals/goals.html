@@ -1,0 +1,83 @@
+<div class="goals-page">
+
+  <!-- Tab Bar -->
+  <div class="tab-bar">
+    <button class="tab-btn" [class.active]="activeTab() === 'list'" (click)="setTab('list')">
+      Goals
+    </button>
+    <button class="tab-btn" [class.active]="activeTab() === 'create'" (click)="setTab('create')">
+      New Goal
+    </button>
+  </div>
+
+  <!-- Goals List -->
+  @if (activeTab() === 'list') {
+    @if (goals().length === 0) {
+      <p class="empty">No goals yet. Create one to get started.</p>
+    } @else {
+      <ul class="goals-list">
+        @for (goal of goals(); track goal.id) {
+          <li class="goal-item">
+            <div class="goal-left">
+              <span class="goal-name">{{ goal.name }}</span>
+              <span class="goal-account">{{ accountName(goal.accountId) }}</span>
+              @if (goal.deadline) {
+                <span class="goal-deadline">Due {{ goal.deadline | date:'MMM d, y' }}</span>
+              }
+              <span class="goal-date">Created {{ goal.createdAt | date:'MMM d, y' }}</span>
+            </div>
+            <div class="goal-right">
+              <span class="goal-amount">{{ goal.targetAmount | number:'1.2-2' }} KM</span>
+              <button class="delete-btn" (click)="deleteGoal(goal.id)">Delete</button>
+            </div>
+          </li>
+        }
+      </ul>
+    }
+  }
+
+  <!-- Create Form -->
+  @if (activeTab() === 'create') {
+    <form class="goal-form" [formGroup]="createForm" (ngSubmit)="submitCreate()">
+      <div class="field">
+        <label class="label" for="goal-account">Account</label>
+        <select id="goal-account" class="input" formControlName="accountId">
+          <option [value]="null">Select account</option>
+          @for (account of accounts(); track account.id) {
+            <option [value]="account.id">{{ account.name }}</option>
+          }
+        </select>
+      </div>
+
+      <div class="field">
+        <label class="label" for="goal-name">Goal Name</label>
+        <input id="goal-name" class="input" type="text" formControlName="name"
+               placeholder="e.g. Emergency Fund" />
+      </div>
+
+      <div class="field">
+        <label class="label" for="goal-amount">Target Amount</label>
+        <input id="goal-amount" class="input" type="number" formControlName="targetAmount"
+               placeholder="0.00" min="0.01" step="0.01" />
+      </div>
+
+      <div class="field">
+        <label class="label" for="goal-deadline">Deadline (optional)</label>
+        <input id="goal-deadline" class="input" type="date" formControlName="deadline" />
+      </div>
+
+      @if (submitStatus() === 'error') {
+        <p class="feedback error">{{ errorMessage() }}</p>
+      }
+      @if (submitStatus() === 'success') {
+        <p class="feedback success">Goal created!</p>
+      }
+
+      <button class="submit-btn" type="submit"
+              [disabled]="createForm.invalid || submitStatus() === 'loading'">
+        @if (submitStatus() === 'loading') { Creating… } @else { Create Goal }
+      </button>
+    </form>
+  }
+
+</div>

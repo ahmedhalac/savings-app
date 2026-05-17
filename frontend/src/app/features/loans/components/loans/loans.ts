@@ -1,0 +1,69 @@
+import { ChangeDetectionStrategy, Component, inject, OnInit, signal } from '@angular/core';
+import { DatePipe, DecimalPipe } from '@angular/common';
+import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import { LoansService } from '../../services/loans.service';
+import { Loan } from '../../../../models/loan';
+
+type Tab = 'list' | 'create';
+type Status = 'idle' | 'loading' | 'success' | 'error';
+
+@Component({
+  selector: 'app-loans',
+  imports: [ReactiveFormsModule, DecimalPipe, DatePipe],
+  templateUrl: './loans.html',
+  styleUrl: './loans.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
+})
+export class LoansComponent implements OnInit {
+  private loansService = inject(LoansService);
+  private fb = inject(FormBuilder);
+
+  loans = signal<Loan[]>([]);
+  totalLoaned = signal(0);
+  activeTab = signal<Tab>('list');
+  submitStatus = signal<Status>('idle');
+  errorMessage = signal('');
+
+  createForm = this.fb.group({
+    borrowerName: ['', [Validators.required, Validators.minLength(1)]],
+    amount: [null as number | null, [Validators.required, Validators.min(0.01)]],
+  });
+
+  ngOnInit() {
+    this.loadLoans();
+  }
+
+  setTab(tab: Tab) {
+    this.activeTab.set(tab);
+    this.submitStatus.set('idle');
+    this.errorMessage.set('');
+  }
+
+  loadLoans() {
+    this.loansService.getAll().subscribe(res => {
+      this.loans.set(res.loans);
+      this.totalLoaned.set(res.totalLoaned);
+    });
+  }
+
+  submitCreate() {
+    if (this.createForm.invalid) return;
+    const { borrowerName, amount } = this.createForm.value;
+    this.submitStatus.set('loading');
+    this.loansService.create(borrowerName as string, amount as number).subscribe({
+      next: () => {
+        this.submitStatus.set('success');
+        this.createForm.reset();
+        this.loadLoans();
+      },
+      error: (err) => {
+        this.submitStatus.set('error');
+        this.errorMessage.set(err.error?.message ?? 'Something went wrong');
+      },
+    });
+  }
+
+  deleteLoan(id: number) {
+    this.loansService.delete(id).subscribe(() => this.loadLoans());
+  }
+}

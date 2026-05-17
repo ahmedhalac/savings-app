@@ -1,0 +1,70 @@
+<div class="loans-page">
+
+  <!-- Summary Bar -->
+  <div class="summary-bar">
+    <span class="summary-label">Total Loaned</span>
+    <span class="summary-amount">{{ totalLoaned() | number:'1.2-2' }} KM</span>
+  </div>
+
+  <!-- Tab Bar -->
+  <div class="tab-bar">
+    <button class="tab-btn" [class.active]="activeTab() === 'list'" (click)="setTab('list')">
+      Loans
+    </button>
+    <button class="tab-btn" [class.active]="activeTab() === 'create'" (click)="setTab('create')">
+      New Loan
+    </button>
+  </div>
+
+  <!-- Loans List -->
+  @if (activeTab() === 'list') {
+    @if (loans().length === 0) {
+      <p class="empty">No loans recorded yet.</p>
+    } @else {
+      <ul class="loans-list">
+        @for (loan of loans(); track loan.id) {
+          <li class="loan-item">
+            <div class="loan-left">
+              <span class="loan-borrower">{{ loan.borrowerName }}</span>
+              <span class="loan-date">{{ loan.createdAt | date:'MMM d, y' }}</span>
+            </div>
+            <div class="loan-right">
+              <span class="loan-amount">{{ loan.amount | number:'1.2-2' }} KM</span>
+              <button class="delete-btn" (click)="deleteLoan(loan.id)">Mark Returned</button>
+            </div>
+          </li>
+        }
+      </ul>
+    }
+  }
+
+  <!-- Create Form -->
+  @if (activeTab() === 'create') {
+    <form class="loan-form" [formGroup]="createForm" (ngSubmit)="submitCreate()">
+      <div class="field">
+        <label class="label" for="borrower-name">Borrower Name</label>
+        <input id="borrower-name" class="input" type="text" formControlName="borrowerName"
+               placeholder="e.g. John Doe" />
+      </div>
+
+      <div class="field">
+        <label class="label" for="loan-amount">Amount</label>
+        <input id="loan-amount" class="input" type="number" formControlName="amount"
+               placeholder="0.00" min="0.01" step="0.01" />
+      </div>
+
+      @if (submitStatus() === 'error') {
+        <p class="feedback error">{{ errorMessage() }}</p>
+      }
+      @if (submitStatus() === 'success') {
+        <p class="feedback success">Loan recorded!</p>
+      }
+
+      <button class="submit-btn" type="submit"
+              [disabled]="createForm.invalid || submitStatus() === 'loading'">
+        @if (submitStatus() === 'loading') { Recording… } @else { Record Loan }
+      </button>
+    </form>
+  }
+
+</div>

@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
-import { CurrencyPipe, DatePipe } from '@angular/common';
+import { DatePipe, DecimalPipe } from '@angular/common';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { AccountsService } from '../../../accounts/services/accounts.service';
 import { TransactionsService } from '../../services/transactions.service';
@@ -12,7 +12,7 @@ type Status = 'idle' | 'loading' | 'success' | 'error';
 
 @Component({
   selector: 'app-transactions',
-  imports: [ReactiveFormsModule, CurrencyPipe, DatePipe],
+  imports: [ReactiveFormsModule, DecimalPipe, DatePipe],
   templateUrl: './transactions.html',
   styleUrl: './transactions.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

@@ -1,6 +1,6 @@
 import { Routes } from '@angular/router';
-import { GoalsShellComponent } from './components/goals-shell/goals-shell';
+import { GoalsComponent } from './components/goals/goals';
 
 export const GOALS_ROUTES: Routes = [
-  { path: '', component: GoalsShellComponent },
+  { path: '', component: GoalsComponent },
 ];

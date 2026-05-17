@@ -109,7 +109,7 @@
             </div>
             <div class="tx-right">
               <span class="tx-amount" [class]="tx.type">
-                {{ tx.type === 'deposit' ? '+' : '−' }}{{ tx.amount | currency:'USD':'symbol':'1.2-2' }}
+                {{ tx.type === 'deposit' ? '+' : '−' }}{{ tx.amount | number:'1.2-2' }} KM
               </span>
               <span class="tx-date">{{ tx.createdAt | date:'MMM d, y' }}</span>
             </div>
