@@ -1,6 +1,6 @@
 import { Routes } from '@angular/router';
-import { TransactionsShellComponent } from './components/transactions-shell/transactions-shell';
+import { TransactionsComponent } from './components/transactions/transactions';
 
 export const TRANSACTIONS_ROUTES: Routes = [
-  { path: '', component: TransactionsShellComponent },
+  { path: '', component: TransactionsComponent },
 ];

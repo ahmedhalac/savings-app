@@ -58,16 +58,16 @@
 
 ### Dashboard
 
-- [ ] Display total balance aggregated across all accounts
-- [ ] Display each account card with name, type, and balance
-- [ ] Display total loaned amount separately below savings balance
-- [ ] Display net available balance (total savings − total loans)
+- [x] Display total balance aggregated across all accounts
+- [x] Display each account card with name, type, and balance
+- [x] Display total loaned amount separately below savings balance
+- [x] Display net available balance (total savings − total loans)
 
 ### Transactions
 
-- [ ] Deposit form: account selector, amount field, submit button
-- [ ] Withdrawal form: account selector, amount field, required explanation field
-- [ ] Transaction history list per account: type, amount, note, date
+- [x] Deposit form: account selector, amount field, submit button
+- [x] Withdrawal form: account selector, amount field, required explanation field
+- [x] Transaction history list per account: type, amount, note, date
 
 ### Goals
 

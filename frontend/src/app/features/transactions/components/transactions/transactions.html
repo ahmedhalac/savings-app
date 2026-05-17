@@ -1,0 +1,122 @@
+<div class="tx-page">
+
+  <!-- Tab Bar -->
+  <div class="tab-bar">
+    <button class="tab-btn" [class.active]="activeTab() === 'deposit'" (click)="setTab('deposit')">
+      Deposit
+    </button>
+    <button class="tab-btn" [class.active]="activeTab() === 'withdraw'" (click)="setTab('withdraw')">
+      Withdraw
+    </button>
+  </div>
+
+  <!-- Deposit Form -->
+  @if (activeTab() === 'deposit') {
+    <form class="tx-form" [formGroup]="depositForm" (ngSubmit)="submitDeposit()">
+      <div class="field">
+        <label class="label" for="deposit-account">Account</label>
+        <select id="deposit-account" class="input" formControlName="accountId">
+          <option [value]="null">Select account</option>
+          @for (account of accounts(); track account.id) {
+            <option [value]="account.id">{{ account.name }}</option>
+          }
+        </select>
+      </div>
+
+      <div class="field">
+        <label class="label" for="deposit-amount">Amount</label>
+        <input id="deposit-amount" class="input" type="number" formControlName="amount"
+               placeholder="0.00" min="0.01" step="0.01" />
+      </div>
+
+      @if (submitStatus() === 'error') {
+        <p class="feedback error">{{ errorMessage() }}</p>
+      }
+      @if (submitStatus() === 'success') {
+        <p class="feedback success">Deposit successful!</p>
+      }
+
+      <button class="submit-btn" type="submit"
+              [disabled]="depositForm.invalid || submitStatus() === 'loading'">
+        @if (submitStatus() === 'loading') { Depositing… } @else { Deposit }
+      </button>
+    </form>
+  }
+
+  <!-- Withdraw Form -->
+  @if (activeTab() === 'withdraw') {
+    <form class="tx-form" [formGroup]="withdrawForm" (ngSubmit)="submitWithdraw()">
+      <div class="field">
+        <label class="label" for="withdraw-account">Account</label>
+        <select id="withdraw-account" class="input" formControlName="accountId">
+          <option [value]="null">Select account</option>
+          @for (account of accounts(); track account.id) {
+            <option [value]="account.id">{{ account.name }}</option>
+          }
+        </select>
+      </div>
+
+      <div class="field">
+        <label class="label" for="withdraw-amount">Amount</label>
+        <input id="withdraw-amount" class="input" type="number" formControlName="amount"
+               placeholder="0.00" min="0.01" step="0.01" />
+      </div>
+
+      <div class="field">
+        <label class="label" for="withdraw-note">Explanation</label>
+        <textarea id="withdraw-note" class="input textarea" formControlName="note"
+                  placeholder="Why are you withdrawing?" rows="3"></textarea>
+      </div>
+
+      @if (submitStatus() === 'error') {
+        <p class="feedback error">{{ errorMessage() }}</p>
+      }
+      @if (submitStatus() === 'success') {
+        <p class="feedback success">Withdrawal successful!</p>
+      }
+
+      <button class="submit-btn" type="submit"
+              [disabled]="withdrawForm.invalid || submitStatus() === 'loading'">
+        @if (submitStatus() === 'loading') { Withdrawing… } @else { Withdraw }
+      </button>
+    </form>
+  }
+
+  <!-- History -->
+  <section class="history">
+    <h2 class="section-title">Transaction History</h2>
+
+    <select class="input" (change)="onSelectHistoryAccount($event)">
+      <option value="">Select account</option>
+      @for (account of accounts(); track account.id) {
+        <option [value]="account.id">{{ account.name }}</option>
+      }
+    </select>
+
+    @if (selectedAccountId() !== null && transactions().length === 0) {
+      <p class="empty">No transactions yet.</p>
+    }
+
+    @if (transactions().length > 0) {
+      <ul class="tx-list">
+        @for (tx of transactions(); track tx.id) {
+          <li class="tx-item">
+            <div class="tx-left">
+              <span class="tx-badge" [class]="tx.type">{{ tx.type }}</span>
+              @if (tx.note) {
+                <span class="tx-note">{{ tx.note }}</span>
+              }
+            </div>
+            <div class="tx-right">
+              <span class="tx-amount" [class]="tx.type">
+                {{ tx.type === 'deposit' ? '+' : '−' }}{{ tx.amount | currency:'USD':'symbol':'1.2-2' }}
+              </span>
+              <span class="tx-date">{{ tx.createdAt | date:'MMM d, y' }}</span>
+            </div>
+          </li>
+        }
+      </ul>
+    }
+  </section>
+
+</div>
