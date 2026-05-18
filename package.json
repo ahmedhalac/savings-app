@@ -2,6 +2,8 @@
   "scripts": {
     "frontend": "cd frontend && ng serve",
     "backend": "cd backend && npm run start:dev",
-    "dev": "npm run frontend & npm run backend"
+    "dev": "npm run frontend & npm run backend",
+    "build": "npm run build --prefix frontend && npm run build --prefix backend",
+    "start": "cd backend && node dist/src/main"
   }
 }

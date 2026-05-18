@@ -1,4 +1,6 @@
+import { join } from 'path';
 import { Module } from '@nestjs/common';
+import { ServeStaticModule } from '@nestjs/serve-static';
 import { AppController } from './app.controller.js';
 import { AppService } from './app.service.js';
 import { PrismaModule } from './prisma/prisma.module.js';
@@ -9,6 +11,10 @@ import { LoansModule } from './loans/loans.module.js';
 
 @Module({
   imports: [
+    ServeStaticModule.forRoot({
+      rootPath: join(__dirname, '..', '..', '..', 'frontend', 'dist', 'frontend', 'browser'),
+      exclude: ['/api/{*path}'],
+    }),
     PrismaModule,
     AccountsModule,
     TransactionsModule,
