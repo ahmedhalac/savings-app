@@ -6,7 +6,6 @@ export const bs: Translations = {
     transactions: 'Transakcije',
     goals: 'Ciljevi',
     loans: 'Pozajmice',
-    ai: 'AI',
   },
   dashboard: {
     totalBalance: 'Ukupan iznos',
@@ -67,9 +66,6 @@ export const bs: Translations = {
     recordLoan: 'Zabilježi pozajmicu',
     markReturned: 'Označi kao vraćeno',
     recording: 'Bilježim…',
-  },
-  ai: {
-    title: 'AI asistent',
   },
   setup: {
     title: 'Postavite vaše račune',

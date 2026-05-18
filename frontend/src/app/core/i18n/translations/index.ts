@@ -4,7 +4,6 @@ export interface Translations {
     transactions: string;
     goals: string;
     loans: string;
-    ai: string;
   };
   dashboard: {
     totalBalance: string;
@@ -65,9 +64,6 @@ export interface Translations {
     recordLoan: string;
     markReturned: string;
     recording: string;
-  };
-  ai: {
-    title: string;
   };
   setup: {
     title: string;

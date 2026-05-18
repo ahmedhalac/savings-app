@@ -37,10 +37,4 @@ export const routes: Routes = [
     loadChildren: () =>
       import('./features/loans/loans.routes').then(m => m.LOANS_ROUTES),
   },
-  {
-    path: 'ai',
-    canActivate: [accountsExistGuard],
-    loadChildren: () =>
-      import('./features/ai/ai.routes').then(m => m.AI_ROUTES),
-  },
 ];

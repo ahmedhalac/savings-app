@@ -6,7 +6,6 @@ export const enUS: Translations = {
     transactions: 'Transactions',
     goals: 'Goals',
     loans: 'Loans',
-    ai: 'AI',
   },
   dashboard: {
     totalBalance: 'Total Balance',
@@ -67,9 +66,6 @@ export const enUS: Translations = {
     recordLoan: 'Record Loan',
     markReturned: 'Mark Returned',
     recording: 'Recording…',
-  },
-  ai: {
-    title: 'AI Assistant',
   },
   setup: {
     title: 'Set Up Your Accounts',
