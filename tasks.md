@@ -44,9 +44,6 @@
 - [x] `GET /loans` — list all loans with total loaned amount
 - [x] `DELETE /loans/:id` — mark loan as returned
 
-### AI Assistant
-
-- [ ] `POST /ai/recommend` — accept (salary, balance, goal_amount, deadline), return savings recommendations via Claude API
 
 ---
 
@@ -88,7 +85,3 @@
 - [x] Loans list view showing borrower, amount, date
 - [x] Mark loan as returned action
 
-### AI Assistant
-
-- [ ] AI assistant panel/modal with inputs: monthly salary, current balance, goal amount, deadline
-- [ ] Submit to backend and display recommendation text response

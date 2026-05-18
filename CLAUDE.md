@@ -9,7 +9,7 @@ Use the DocsExplorer subagent for efficient documentation lookup.
 
 ## Project Overview
 
-A personal savings management app with an AI financial assistant. Users track balances across multiple accounts (Primary Savings, Primary Current, Secondary Current), manage savings goals, log deposits/withdrawals, and track loans. An AI assistant (Claude API) provides savings recommendations based on salary and goals.
+A personal savings management app. Users track balances across multiple accounts, manage savings goals, log deposits/withdrawals, and track loans.
 
 **Tech Stack:** Angular 20 (frontend) · NestJS 11 (backend) · PostgreSQL + Prisma (database)
 
@@ -52,7 +52,7 @@ savings-app/
 ```
 
 ### Backend (NestJS)
-- Feature modules: `accounts`, `transactions`, `goals`, `loans`, `ai`
+- Feature modules: `accounts`, `transactions`, `goals`, `loans`
 - ORM: **Prisma** for all database access and schema migrations — do not use raw SQL directly
 - MCP servers should be used where available (e.g., PostgreSQL MCP for DB operations)
 - API contract (from `tasks.md`):
@@ -61,10 +61,9 @@ savings-app/
   - `GET /accounts/:id/transactions`
   - `POST|GET|DELETE /goals`
   - `POST|GET|DELETE /loans`
-  - `POST /ai/recommend` — calls Claude API with (salary, balance, goal_amount, deadline)
 
 ### Frontend (Angular 20)
-- Standalone components, lazy-loaded feature modules per domain (accounts, transactions, goals, loans, ai)
+- Standalone components, lazy-loaded feature modules per domain (accounts, transactions, goals, loans)
 - Mobile-first, minimalistic design — neutral palette, single font, tight spacing
 - Environment files configure `apiBaseUrl`; use Angular's `HttpClient` for all API calls
 

@@ -12,17 +12,6 @@ The application enables users to track and manage their savings across multiple 
 - Display transaction history (deposits and withdrawals) with dates in a list view
 - Automatically calculate and display the total balance across all connected accounts
 
-### AI Financial Assistant
-
-The application includes an AI-powered assistant that provides personalized savings recommendations based on:
-
-- Monthly salary
-- Current savings balance
-- Savings goal amount
-- Target deadline
-
-The AI assistant helps users optimize their saving strategy to achieve financial goals more efficiently.
-
 ### Multi-Account Support
 
 The application supports multiple savings and current accounts. On first launch, the user creates their own accounts with custom names and types (savings or current). Any number of accounts can be created during setup; account names are set once and are not editable after creation.
