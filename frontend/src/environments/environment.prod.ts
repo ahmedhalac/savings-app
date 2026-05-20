@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  apiBaseUrl: 'https://savings-app-4.onrender.com/api',
+  apiBaseUrl: 'https://savings-app-production-c278.up.railway.app/api',
 };
