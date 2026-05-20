@@ -7,8 +7,7 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   app.setGlobalPrefix('api');
   app.enableCors({
-    origin:
-      process.env.FRONTEND_URL || 'https://https://savings-app-8.onrender.com',
+    origin: process.env.FRONTEND_URL || 'https://savings-app-8.onrender.com',
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH'],
     credentials: true,
   });
