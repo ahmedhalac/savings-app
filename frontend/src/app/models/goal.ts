@@ -5,4 +5,8 @@ export interface Goal {
   targetAmount: number;
   deadline: string | null;
   createdAt: string;
+  savedAmount?: number;
+  percentComplete?: number;
+  avgMonthlyDeposit?: number;
+  projectedCompletionDate?: string | null;
 }

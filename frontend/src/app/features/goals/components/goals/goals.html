@@ -24,17 +24,34 @@
       <ul class="goals-list">
         @for (goal of goals(); track goal.id) {
           <li class="goal-item">
-            <div class="goal-left">
-              <span class="goal-name">{{ goal.name }}</span>
-              <span class="goal-account">{{ accountName(goal.accountId) }}</span>
-              @if (goal.deadline) {
-                <span class="goal-deadline">{{ t().goals.due }} {{ goal.deadline | date:'MMM d, y' }}</span>
-              }
-              <span class="goal-date">{{ t().goals.created }} {{ goal.createdAt | date:'MMM d, y' }}</span>
-            </div>
-            <div class="goal-right">
-              <span class="goal-amount">{{ goal.targetAmount | number:'1.2-2' }} KM</span>
+            <div class="goal-header">
+              <div class="goal-meta">
+                <span class="goal-name">{{ goal.name }}</span>
+                <span class="goal-account">{{ accountName(goal.accountId) }}</span>
+              </div>
               <button class="delete-btn" (click)="deleteGoal(goal.id)">{{ t().goals.delete }}</button>
+            </div>
+
+            <div class="progress-bar">
+              <div class="progress-fill" [style.width.%]="goal.percentComplete ?? 0"></div>
+            </div>
+
+            <div class="goal-stats">
+              <span class="goal-saved">
+                {{ goal.savedAmount | number:'1.2-2' }} KM {{ t().goals.saved }}
+                ({{ goal.percentComplete | number:'1.0-1' }}%)
+              </span>
+              <span class="goal-target">{{ t().goals.target }}: {{ goal.targetAmount | number:'1.2-2' }} KM</span>
+            </div>
+
+            <div class="goal-footer">
+              <span class="goal-projection">{{ projectedLabel(goal) }}</span>
+              <div class="goal-dates">
+                @if (goal.deadline) {
+                  <span class="goal-deadline">{{ t().goals.due }} {{ goal.deadline | date:'MMM d, y' }}</span>
+                }
+                <span class="goal-date">{{ t().goals.created }} {{ goal.createdAt | date:'MMM d, y' }}</span>
+              </div>
             </div>
           </li>
         }

@@ -55,6 +55,11 @@ export const enUS: Translations = {
     created: 'Created',
     delete: 'Delete',
     creating: 'Creating…',
+    saved: 'saved',
+    target: 'Target',
+    goalComplete: 'Goal complete!',
+    projectedDone: 'At current pace, done',
+    noDepositHistory: 'No deposit history yet',
   },
   loans: {
     loans: 'Loans',

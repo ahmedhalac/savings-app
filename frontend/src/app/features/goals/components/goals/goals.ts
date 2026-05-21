@@ -96,4 +96,13 @@ export class GoalsComponent implements OnInit {
   accountName(accountId: number): string {
     return this.accounts().find(a => a.id === accountId)?.name ?? 'Unknown';
   }
+
+  projectedLabel(goal: Goal): string {
+    const t = this.t().goals;
+    if ((goal.percentComplete ?? 0) >= 100) return t.goalComplete;
+    if (!goal.projectedCompletionDate) return t.noDepositHistory;
+    const date = new Date(goal.projectedCompletionDate);
+    const formatted = date.toLocaleDateString('en-US', { month: 'long', year: 'numeric' });
+    return `${t.projectedDone} ${formatted}`;
+  }
 }

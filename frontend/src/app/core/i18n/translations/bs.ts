@@ -55,6 +55,11 @@ export const bs: Translations = {
     created: 'Kreirano',
     delete: 'Obriši',
     creating: 'Kreiram…',
+    saved: 'uštedeno',
+    target: 'Cilj',
+    goalComplete: 'Cilj ostvaren!',
+    projectedDone: 'Trenutnim tempom, gotovo',
+    noDepositHistory: 'Nema historije uplata',
   },
   loans: {
     loans: 'Pozajmice',

@@ -53,6 +53,11 @@ export interface Translations {
     created: string;
     delete: string;
     creating: string;
+    saved: string;
+    target: string;
+    goalComplete: string;
+    projectedDone: string;
+    noDepositHistory: string;
   };
   loans: {
     loans: string;
