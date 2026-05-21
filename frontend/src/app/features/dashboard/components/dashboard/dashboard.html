@@ -61,7 +61,28 @@
 
   <section class="buffer-section">
     <div class="section-header">
-      <h2 class="section-title">{{ t().dashboard.buffer }}</h2>
+      <div class="buffer-title-group">
+        <h2 class="section-title">{{ t().dashboard.buffer }}</h2>
+        <div class="info-wrapper">
+          <button
+            class="info-btn"
+            type="button"
+            (click)="showBufferInfo.set(!showBufferInfo())"
+            aria-label="Buffer account info"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <circle cx="12" cy="12" r="10"/>
+              <line x1="12" x2="12.01" y1="8" y2="8"/>
+              <line x1="12" x2="12" y1="12" y2="16"/>
+            </svg>
+          </button>
+          @if (showBufferInfo()) {
+            <div class="info-popup" (click)="$event.stopPropagation()">
+              {{ t().dashboard.bufferInfo }}
+            </div>
+          }
+        </div>
+      </div>
     </div>
 
     @if (accountsLoading()) {

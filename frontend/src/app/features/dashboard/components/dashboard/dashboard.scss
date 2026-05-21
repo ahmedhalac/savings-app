@@ -197,6 +197,50 @@
   }
 }
 
+// Buffer info
+.buffer-title-group {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.info-wrapper {
+  position: relative;
+}
+
+.info-btn {
+  width: 16px;
+  height: 16px;
+  background: transparent;
+  border: none;
+  color: var(--color-gray-400);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  transition: color 0.15s;
+
+  &:hover {
+    color: var(--color-accent);
+  }
+}
+
+.info-popup {
+  position: absolute;
+  top: calc(100% + var(--space-2));
+  left: 0;
+  width: 260px;
+  background: var(--color-gray-900);
+  color: var(--color-white);
+  font-size: var(--text-xs);
+  line-height: 1.5;
+  padding: var(--space-3) var(--space-4);
+  border-radius: var(--radius-lg);
+  z-index: 50;
+  box-shadow: var(--shadow-lg);
+}
+
 // Buffer section
 .buffer-section {
   display: flex;

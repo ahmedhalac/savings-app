@@ -20,6 +20,7 @@ export const enUS: Translations = {
     savings: 'Savings',
     current: 'Current',
     buffer: 'Buffer',
+    bufferInfo: 'A dedicated account for unexpected expenses (car repairs, medical bills, etc.). Kept separate from your savings - excluded from Total Balance and Net Available.',
     createBuffer: 'Create Buffer Account',
     noBuffer: 'No buffer account yet.',
     cancel: 'Cancel',

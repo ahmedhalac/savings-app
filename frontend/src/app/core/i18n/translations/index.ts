@@ -18,6 +18,7 @@ export interface Translations {
     savings: string;
     current: string;
     buffer: string;
+    bufferInfo: string;
     createBuffer: string;
     noBuffer: string;
     cancel: string;

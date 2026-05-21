@@ -20,6 +20,7 @@ export const bs: Translations = {
     savings: 'Štedni',
     current: 'Tekući',
     buffer: 'Buffer',
+    bufferInfo: 'Poseban račun za neočekivane troškove (popravak auta, liječničke usluge, itd.). Odvojen od štednje - nije uključen u ukupan iznos i neto raspoloživo.',
     createBuffer: 'Kreiraj Buffer račun',
     noBuffer: 'Nema buffer računa.',
     cancel: 'Otkaži',

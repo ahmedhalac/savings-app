@@ -54,6 +54,9 @@ export class DashboardComponent implements OnInit {
   newBufferName = signal('');
   addBufferStatus = signal<AddStatus>('idle');
 
+  // Buffer info popup
+  showBufferInfo = signal(false);
+
   // Delete confirmation modal
   confirmDeleteAccount = signal<Account | null>(null);
 
