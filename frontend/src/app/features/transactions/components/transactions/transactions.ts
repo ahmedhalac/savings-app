@@ -80,6 +80,7 @@ export class TransactionsComponent {
       next: () => {
         this.submitStatus.set('success');
         this.depositForm.reset();
+        this.accountsService.invalidateCache();
         this.refreshHistoryIfMatch(accountId as number);
       },
       error: (err) => {
@@ -99,6 +100,7 @@ export class TransactionsComponent {
       next: () => {
         this.submitStatus.set('success');
         this.withdrawForm.reset();
+        this.accountsService.invalidateCache();
         this.refreshHistoryIfMatch(accountId as number);
       },
       error: (err) => {

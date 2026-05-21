@@ -11,12 +11,16 @@ export class AccountsService {
   private base = `${environment.apiBaseUrl}/accounts`;
   private allCache$: Observable<Account[]> | null = null;
 
+  invalidateCache() {
+    this.allCache$ = null;
+  }
+
   create(data: { name: string; type: 'savings' | 'current' | 'buffer' }) {
-    return this.http.post<Account>(this.base, data).pipe(tap(() => this.allCache$ = null));
+    return this.http.post<Account>(this.base, data).pipe(tap(() => this.invalidateCache()));
   }
 
   delete(id: number) {
-    return this.http.delete(`${this.base}/${id}`).pipe(tap(() => this.allCache$ = null));
+    return this.http.delete(`${this.base}/${id}`).pipe(tap(() => this.invalidateCache()));
   }
 
   getAll() {
