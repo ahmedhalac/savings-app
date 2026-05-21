@@ -40,7 +40,9 @@ textarea {
   --color-gray-50:  oklch(98% 0.002 264);
   --color-gray-100: oklch(95% 0.004 264);
   --color-gray-200: oklch(90% 0.006 264);
+  --color-gray-300: oklch(82% 0.007 264);
   --color-gray-400: oklch(72% 0.010 264);
+  --color-gray-500: oklch(62% 0.011 264);
   --color-gray-600: oklch(52% 0.012 264);
   --color-gray-700: oklch(40% 0.012 264);
   --color-gray-900: oklch(20% 0.008 264);
@@ -94,6 +96,23 @@ textarea {
   --shadow-sm: 0 1px 2px 0 oklch(0% 0 0 / 0.05);
   --shadow-md: 0 4px 6px -1px oklch(0% 0 0 / 0.08),
                0 2px 4px -1px oklch(0% 0 0 / 0.04);
+}
+
+[data-theme="dark"] {
+  --color-white:         oklch(18% 0.009 264);  // card / input / active-tab surface
+  --color-gray-50:       oklch(8%  0.005 264);  // page background
+  --color-gray-100:      oklch(13% 0.007 264);  // tab track, skeleton base
+  --color-gray-200:      oklch(26% 0.009 264);  // borders
+  --color-gray-300:      oklch(36% 0.009 264);  // separators
+  --color-gray-400:      oklch(50% 0.010 264);  // placeholder / disabled
+  --color-gray-500:      oklch(60% 0.011 264);  // muted text
+  --color-gray-600:      oklch(70% 0.012 264);  // secondary text
+  --color-gray-700:      oklch(80% 0.012 264);
+  --color-gray-900:      oklch(95% 0.004 264);  // primary text
+  --color-accent-subtle: oklch(22% 0.07 250);
+  --shadow-sm: 0 1px 3px 0 oklch(0% 0 0 / 0.4);
+  --shadow-md: 0 4px 8px -1px oklch(0% 0 0 / 0.5),
+               0 2px 4px -1px oklch(0% 0 0 / 0.3);
 }
 
 @keyframes shimmer {

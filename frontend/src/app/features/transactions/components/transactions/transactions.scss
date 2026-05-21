@@ -209,6 +209,36 @@
   color: var(--color-gray-600);
 }
 
+:host-context([data-theme="dark"]) {
+  .feedback.error {
+    background: oklch(18% 0.06 30);
+    color: oklch(72% 0.18 30);
+  }
+
+  .feedback.success {
+    background: oklch(18% 0.07 145);
+    color: oklch(72% 0.14 145);
+  }
+
+  .tx-badge.deposit {
+    background: oklch(22% 0.07 145);
+    color: oklch(72% 0.14 145);
+  }
+
+  .tx-badge.withdrawal {
+    background: oklch(22% 0.07 30);
+    color: oklch(72% 0.18 30);
+  }
+
+  .tx-amount.deposit {
+    color: oklch(65% 0.14 145);
+  }
+
+  .tx-amount.withdrawal {
+    color: oklch(65% 0.18 30);
+  }
+}
+
 // Skeleton loaders
 .skeleton-list {
   display: flex;

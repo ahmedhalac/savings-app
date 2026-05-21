@@ -1,0 +1,49 @@
+.theme-toggle {
+  position: relative;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: none;
+  border: none;
+  border-radius: var(--radius-full);
+  color: var(--color-gray-600);
+  cursor: pointer;
+  padding: 0;
+  transition: color 0.15s ease, background-color 0.15s ease;
+
+  &:hover {
+    color: var(--color-gray-900);
+    background-color: var(--color-gray-100);
+  }
+}
+
+.icon {
+  position: absolute;
+  transition: opacity 0.25s ease, transform 0.3s ease;
+}
+
+// Light mode: show moon (click → switch to dark)
+.icon-sun {
+  opacity: 0;
+  transform: rotate(-90deg) scale(0.6);
+}
+
+.icon-moon {
+  opacity: 1;
+  transform: rotate(0deg) scale(1);
+}
+
+// Dark mode: show sun (click → switch to light)
+.is-dark {
+  .icon-sun {
+    opacity: 1;
+    transform: rotate(0deg) scale(1);
+  }
+
+  .icon-moon {
+    opacity: 0;
+    transform: rotate(90deg) scale(0.6);
+  }
+}
