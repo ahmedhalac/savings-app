@@ -43,6 +43,27 @@ Loans should not directly reduce the displayed savings balance. Instead, they sh
 - Money currently loaned out
 - Net available balance
 
+### Authentication & Authorization
+
+The app requires user accounts so each person's data is fully isolated. Auth is handled by **Better Auth**, a TypeScript-native library that runs inside the NestJS backend and manages its own tables in the existing PostgreSQL database via the Prisma adapter.
+
+**Sign-in options:**
+- Email + password (registration + login)
+- Sign in with Google (Gmail)
+- Sign in with Microsoft (Outlook)
+
+**Rules:**
+- All routes (frontend and API) are protected — unauthenticated users are redirected to `/login`.
+- Every piece of app data (accounts, goals, loans) is scoped to the authenticated user via a `userId` FK on each table.
+- Session is managed via a cookie; the frontend sends `withCredentials: true` on all requests.
+- The login and register pages follow the existing minimalistic design (same tokens, card layout, mobile-first).
+- Social logins automatically register the user on first use.
+
+**Backend impact:**
+- The Prisma `Account` model (savings accounts) is renamed to `AppAccount` (with `@@map("accounts")`) to avoid a naming conflict with Better Auth's own `Account` model (used for OAuth connections).
+- Better Auth mounts its handlers at `/api/auth/*` inside the NestJS app.
+- A global auth guard (from `@thallesp/nestjs-better-auth`) protects all routes automatically.
+
 ---
 
 # Project Structure

@@ -44,6 +44,21 @@
 - [x] `GET /loans` — list all loans with total loaned amount
 - [x] `DELETE /loans/:id` — mark loan as returned
 
+### Auth (Better Auth)
+
+- [ ] Rename Prisma `Account` model → `AppAccount` with `@@map("accounts")` to avoid conflict with Better Auth's own `Account` model
+- [ ] Install `better-auth` and `@thallesp/nestjs-better-auth` in backend
+- [ ] Add Better Auth models to Prisma schema via `npx auth@latest generate`
+- [ ] Add `userId` FK to `AppAccount`, `Goal`, and `Loan` models
+- [ ] Run fresh migration (`add_auth_and_user_scope`) — wipes existing data
+- [ ] Create `src/auth/auth.ts` — Better Auth config with Prisma adapter, email+password, Google, Microsoft
+- [ ] Create `src/auth/auth.module.ts` — register `AuthModule.forRoot({ auth })`
+- [ ] Update `main.ts` — disable body parser (`bodyParser: false`)
+- [ ] Update `app.module.ts` — import `AuthModule`
+- [ ] Add env vars: `BETTER_AUTH_SECRET`, `BETTER_AUTH_URL`, `GOOGLE_CLIENT_ID`, `GOOGLE_CLIENT_SECRET`, `MICROSOFT_CLIENT_ID`, `MICROSOFT_CLIENT_SECRET`
+- [ ] Update all controllers to extract `userId` from `@Session()` and pass to services
+- [ ] Update all services to filter/create data by `userId` (accounts, transactions, goals, loans)
+- [ ] Replace all `prisma.account.*` calls with `prisma.appAccount.*` throughout backend
 
 ---
 
@@ -85,3 +100,15 @@
 - [x] Loans list view showing borrower, amount, date
 - [x] Mark loan as returned action
 
+### Auth (Better Auth)
+
+- [ ] Install `better-auth` in frontend
+- [ ] Create `core/auth/auth.client.ts` — `createAuthClient` pointing to backend
+- [ ] Create `core/auth/auth.service.ts` — Angular signal-based service (session, isAuthenticated, signIn, signOut)
+- [ ] Create `core/interceptors/credentials.interceptor.ts` — adds `withCredentials: true` to all requests
+- [ ] Register credentials interceptor in `app.config.ts`
+- [ ] Create `core/guards/auth.guard.ts` — redirect to `/login` if not authenticated
+- [ ] Update `app.routes.ts` — add `/login` and `/register` routes; wrap all existing routes under `authGuard`
+- [ ] Create `features/auth/login` — email/password form + Google + Microsoft social buttons
+- [ ] Create `features/auth/register` — name + email + password form + social buttons
+- [ ] Style login/register pages using existing design tokens (card layout, mobile-first)
