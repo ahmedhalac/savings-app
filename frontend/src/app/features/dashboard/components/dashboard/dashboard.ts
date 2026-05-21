@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy, Component, computed, inject, OnInit, signal } from '@angular/core';
 import { DecimalPipe } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { ToastrService } from 'ngx-toastr';
 import { AccountsService } from '../../../accounts/services/accounts.service';
 import { LoansService } from '../../../loans/services/loans.service';
 import { Account } from '../../../../models/account';
@@ -20,6 +21,7 @@ type AddStatus = 'idle' | 'loading' | 'error';
 export class DashboardComponent implements OnInit {
   private accountsService = inject(AccountsService);
   private loansService = inject(LoansService);
+  private toastr = inject(ToastrService);
 
   readonly t = inject(I18nService).t;
 
@@ -83,8 +85,12 @@ export class DashboardComponent implements OnInit {
       next: () => {
         this.showAddModal.set(false);
         this.loadAccounts();
+        this.toastr.success(this.t().dashboard.accountAdded);
       },
-      error: () => this.addStatus.set('error'),
+      error: (err) => {
+        this.addStatus.set('error');
+        this.toastr.error(err.error?.message ?? this.t().toast.error);
+      },
     });
   }
 
@@ -106,8 +112,12 @@ export class DashboardComponent implements OnInit {
       next: () => {
         this.showAddBufferModal.set(false);
         this.loadAccounts();
+        this.toastr.success(this.t().dashboard.accountAdded);
       },
-      error: () => this.addBufferStatus.set('error'),
+      error: (err) => {
+        this.addBufferStatus.set('error');
+        this.toastr.error(err.error?.message ?? this.t().toast.error);
+      },
     });
   }
 
@@ -126,8 +136,12 @@ export class DashboardComponent implements OnInit {
       next: () => {
         this.confirmDeleteAccount.set(null);
         this.loadAccounts();
+        this.toastr.success(this.t().dashboard.accountDeleted);
       },
-      error: () => this.confirmDeleteAccount.set(null),
+      error: (err) => {
+        this.confirmDeleteAccount.set(null);
+        this.toastr.error(err.error?.message ?? this.t().toast.error);
+      },
     });
   }
 }

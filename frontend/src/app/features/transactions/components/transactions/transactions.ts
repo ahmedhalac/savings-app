@@ -2,6 +2,7 @@ import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/cor
 import { toSignal } from '@angular/core/rxjs-interop';
 import { DatePipe, DecimalPipe } from '@angular/common';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import { ToastrService } from 'ngx-toastr';
 import { AccountsService } from '../../../accounts/services/accounts.service';
 import { TransactionsService } from '../../services/transactions.service';
 import { Account } from '../../../../models/account';
@@ -22,6 +23,7 @@ export class TransactionsComponent {
   private accountsService = inject(AccountsService);
   private transactionsService = inject(TransactionsService);
   private fb = inject(FormBuilder);
+  private toastr = inject(ToastrService);
 
   readonly t = inject(I18nService).t;
 
@@ -79,10 +81,13 @@ export class TransactionsComponent {
         this.submitStatus.set('success');
         this.depositForm.reset();
         this.refreshHistoryIfMatch(accountId as number);
+        this.toastr.success(this.t().transactions.depositSuccess);
       },
       error: (err) => {
         this.submitStatus.set('error');
-        this.errorMessage.set(err.error?.message ?? 'Something went wrong');
+        const msg = err.error?.message ?? this.t().toast.error;
+        this.errorMessage.set(msg);
+        this.toastr.error(msg);
       },
     });
   }
@@ -96,10 +101,13 @@ export class TransactionsComponent {
         this.submitStatus.set('success');
         this.withdrawForm.reset();
         this.refreshHistoryIfMatch(accountId as number);
+        this.toastr.success(this.t().transactions.withdrawSuccess);
       },
       error: (err) => {
         this.submitStatus.set('error');
-        this.errorMessage.set(err.error?.message ?? 'Something went wrong');
+        const msg = err.error?.message ?? this.t().toast.error;
+        this.errorMessage.set(msg);
+        this.toastr.error(msg);
       },
     });
   }

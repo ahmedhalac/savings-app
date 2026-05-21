@@ -25,6 +25,8 @@ export const enUS: Translations = {
     cancel: 'Cancel',
     deleteWarning: 'This will permanently delete the account and all its transactions and goals.',
     delete: 'Delete',
+    accountAdded: 'Account added!',
+    accountDeleted: 'Account deleted.',
   },
   transactions: {
     deposit: 'Deposit',
@@ -49,6 +51,7 @@ export const enUS: Translations = {
     targetAmount: 'Target Amount',
     deadline: 'Deadline (optional)',
     goalCreated: 'Goal created!',
+    goalDeleted: 'Goal deleted.',
     createGoal: 'Create Goal',
     due: 'Due',
     created: 'Created',
@@ -63,6 +66,7 @@ export const enUS: Translations = {
     borrowerName: 'Borrower Name',
     amount: 'Amount',
     loanRecorded: 'Loan recorded!',
+    loanDeleted: 'Loan removed.',
     recordLoan: 'Record Loan',
     markReturned: 'Mark Returned',
     recording: 'Recording…',
@@ -81,5 +85,8 @@ export const enUS: Translations = {
     cancel: 'Cancel',
     complete: 'Complete Setup',
     completing: 'Setting up…',
+  },
+  toast: {
+    error: 'Something went wrong',
   },
 };

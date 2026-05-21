@@ -25,6 +25,8 @@ export const bs: Translations = {
     cancel: 'Otkaži',
     deleteWarning: 'Ovo će trajno obrisati račun i sve njegove transakcije i ciljeve.',
     delete: 'Obriši',
+    accountAdded: 'Račun dodan!',
+    accountDeleted: 'Račun obrisan.',
   },
   transactions: {
     deposit: 'Uplata',
@@ -49,6 +51,7 @@ export const bs: Translations = {
     targetAmount: 'Ciljni iznos',
     deadline: 'Rok (nije obavezno)',
     goalCreated: 'Cilj kreiran!',
+    goalDeleted: 'Cilj obrisan.',
     createGoal: 'Kreiraj cilj',
     due: 'Rok',
     created: 'Kreirano',
@@ -63,6 +66,7 @@ export const bs: Translations = {
     borrowerName: 'Ime zajmoprimca',
     amount: 'Iznos',
     loanRecorded: 'Pozajmica zabilježena!',
+    loanDeleted: 'Pozajmica uklonjena.',
     recordLoan: 'Zabilježi pozajmicu',
     markReturned: 'Označi kao vraćeno',
     recording: 'Bilježim…',
@@ -82,5 +86,8 @@ export const bs: Translations = {
     cancel: 'Otkaži',
     complete: 'Završi postavljanje',
     completing: 'Postavljam…',
+  },
+  toast: {
+    error: 'Desila se greška',
   },
 };
