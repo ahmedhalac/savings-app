@@ -14,13 +14,6 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-
-  .app-name {
-    font-size: var(--text-lg);
-    font-weight: var(--font-semibold);
-    color: var(--color-accent);
-    letter-spacing: -0.01em;
-  }
 }
 
 .top-bar-actions {

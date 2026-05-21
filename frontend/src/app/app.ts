@@ -3,10 +3,11 @@ import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 import { I18nService } from './core/i18n/i18n.service';
 import { LangPickerComponent } from './core/i18n/lang-picker/lang-picker';
 import { ThemeToggleComponent } from './core/theme/theme-toggle/theme-toggle';
+import { LogoComponent } from './shared/logo/logo';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, RouterLink, RouterLinkActive, LangPickerComponent, ThemeToggleComponent],
+  imports: [RouterOutlet, RouterLink, RouterLinkActive, LangPickerComponent, ThemeToggleComponent, LogoComponent],
   templateUrl: './app.html',
   styleUrl: './app.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
