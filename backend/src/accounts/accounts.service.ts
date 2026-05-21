@@ -21,7 +21,9 @@ export class AccountsService {
   }
 
   async getSummary() {
-    const accounts = await this.prisma.account.findMany();
+    const accounts = await this.prisma.account.findMany({
+      where: { type: { not: 'buffer' } },
+    });
     const total = accounts.reduce((sum, a) => sum + Number(a.balance), 0);
     return { totalBalance: total };
   }
