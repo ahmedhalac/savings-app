@@ -74,7 +74,6 @@ export class GoalsComponent implements OnInit {
         this.submitStatus.set('success');
         this.createForm.reset();
         this.loadGoals();
-        this.toastr.success(this.t().goals.goalCreated);
       },
       error: (err) => {
         this.submitStatus.set('error');
@@ -89,7 +88,6 @@ export class GoalsComponent implements OnInit {
     this.goalsService.delete(id).subscribe({
       next: () => {
         this.loadGoals();
-        this.toastr.success(this.t().goals.goalDeleted);
       },
       error: (err) => this.toastr.error(err.error?.message ?? this.t().toast.error),
     });

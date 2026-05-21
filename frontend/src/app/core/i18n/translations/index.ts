@@ -23,8 +23,6 @@ export interface Translations {
     cancel: string;
     deleteWarning: string;
     delete: string;
-    accountAdded: string;
-    accountDeleted: string;
   };
   transactions: {
     deposit: string;
@@ -49,7 +47,6 @@ export interface Translations {
     targetAmount: string;
     deadline: string;
     goalCreated: string;
-    goalDeleted: string;
     createGoal: string;
     due: string;
     created: string;
@@ -64,7 +61,6 @@ export interface Translations {
     borrowerName: string;
     amount: string;
     loanRecorded: string;
-    loanDeleted: string;
     recordLoan: string;
     markReturned: string;
     recording: string;

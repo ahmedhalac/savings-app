@@ -85,7 +85,6 @@ export class DashboardComponent implements OnInit {
       next: () => {
         this.showAddModal.set(false);
         this.loadAccounts();
-        this.toastr.success(this.t().dashboard.accountAdded);
       },
       error: (err) => {
         this.addStatus.set('error');
@@ -112,7 +111,6 @@ export class DashboardComponent implements OnInit {
       next: () => {
         this.showAddBufferModal.set(false);
         this.loadAccounts();
-        this.toastr.success(this.t().dashboard.accountAdded);
       },
       error: (err) => {
         this.addBufferStatus.set('error');
@@ -136,7 +134,6 @@ export class DashboardComponent implements OnInit {
       next: () => {
         this.confirmDeleteAccount.set(null);
         this.loadAccounts();
-        this.toastr.success(this.t().dashboard.accountDeleted);
       },
       error: (err) => {
         this.confirmDeleteAccount.set(null);

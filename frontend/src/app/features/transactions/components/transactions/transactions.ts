@@ -81,7 +81,6 @@ export class TransactionsComponent {
         this.submitStatus.set('success');
         this.depositForm.reset();
         this.refreshHistoryIfMatch(accountId as number);
-        this.toastr.success(this.t().transactions.depositSuccess);
       },
       error: (err) => {
         this.submitStatus.set('error');
@@ -101,7 +100,6 @@ export class TransactionsComponent {
         this.submitStatus.set('success');
         this.withdrawForm.reset();
         this.refreshHistoryIfMatch(accountId as number);
-        this.toastr.success(this.t().transactions.withdrawSuccess);
       },
       error: (err) => {
         this.submitStatus.set('error');

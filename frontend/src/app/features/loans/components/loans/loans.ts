@@ -62,7 +62,6 @@ export class LoansComponent implements OnInit {
         this.submitStatus.set('success');
         this.createForm.reset();
         this.loadLoans();
-        this.toastr.success(this.t().loans.loanRecorded);
       },
       error: (err) => {
         this.submitStatus.set('error');
@@ -77,7 +76,6 @@ export class LoansComponent implements OnInit {
     this.loansService.delete(id).subscribe({
       next: () => {
         this.loadLoans();
-        this.toastr.success(this.t().loans.loanDeleted);
       },
       error: (err) => this.toastr.error(err.error?.message ?? this.t().toast.error),
     });
