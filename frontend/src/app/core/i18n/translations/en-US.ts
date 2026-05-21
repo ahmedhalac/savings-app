@@ -10,7 +10,7 @@ export const enUS: Translations = {
   dashboard: {
     totalBalance: 'Total Balance',
     netAvailable: 'Net Available',
-    totalLoaned: 'Total Loaned',
+    totalLoaned: 'Loaned',
     accounts: 'Accounts',
     noAccounts: 'No accounts found.',
     addAccount: 'Add Account',

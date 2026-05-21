@@ -1,9 +1,6 @@
-import { IsDateString, IsInt, IsNotEmpty, IsOptional, IsNumber, IsString, Min } from 'class-validator';
+import { IsDateString, IsNotEmpty, IsOptional, IsNumber, IsString, Min } from 'class-validator';
 
 export class CreateGoalDto {
-  @IsInt()
-  accountId!: number;
-
   @IsString()
   @IsNotEmpty()
   name!: string;

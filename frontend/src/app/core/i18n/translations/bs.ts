@@ -10,7 +10,7 @@ export const bs: Translations = {
   dashboard: {
     totalBalance: 'Ukupan iznos',
     netAvailable: 'Neto raspoloživo',
-    totalLoaned: 'Ukupno pozajmljeno',
+    totalLoaned: 'Pozajmljeno',
     accounts: 'Računi',
     noAccounts: 'Nema pronađenih računa.',
     addAccount: 'Dodaj račun',

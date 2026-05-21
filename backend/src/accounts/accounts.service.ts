@@ -30,7 +30,6 @@ export class AccountsService {
 
   async delete(id: number) {
     await this.prisma.$transaction([
-      this.prisma.goal.deleteMany({ where: { accountId: id } }),
       this.prisma.transaction.deleteMany({ where: { accountId: id } }),
       this.prisma.account.delete({ where: { id } }),
     ]);

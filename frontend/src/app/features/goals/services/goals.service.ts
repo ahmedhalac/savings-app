@@ -12,7 +12,7 @@ export class GoalsService {
     return this.http.get<Goal[]>(this.base);
   }
 
-  create(data: { accountId: number; name: string; targetAmount: number; deadline?: string }) {
+  create(data: { name: string; targetAmount: number; deadline?: string }) {
     return this.http.post<Goal>(this.base, data);
   }
 

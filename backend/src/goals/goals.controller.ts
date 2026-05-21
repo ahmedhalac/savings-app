@@ -16,7 +16,7 @@ export class GoalsController {
 
   @Post()
   create(@Body() dto: CreateGoalDto) {
-    return this.goalsService.create(dto.accountId, dto.name, dto.targetAmount, dto.deadline);
+    return this.goalsService.create(dto.name, dto.targetAmount, dto.deadline);
   }
 
   @Get()

@@ -27,7 +27,6 @@
             <div class="goal-header">
               <div class="goal-meta">
                 <span class="goal-name">{{ goal.name }}</span>
-                <span class="goal-account">{{ accountName(goal.accountId) }}</span>
               </div>
               <button class="delete-btn" (click)="deleteGoal(goal.id)">{{ t().goals.delete }}</button>
             </div>
@@ -62,16 +61,6 @@
   <!-- Create Form -->
   @if (activeTab() === 'create') {
     <form class="goal-form" [formGroup]="createForm" (ngSubmit)="submitCreate()">
-      <div class="field">
-        <label class="label" for="goal-account">{{ t().goals.account }}</label>
-        <select id="goal-account" class="input" formControlName="accountId">
-          <option [value]="null">{{ t().transactions.selectAccount }}</option>
-          @for (account of accounts(); track account.id) {
-            <option [value]="account.id">{{ account.name }}</option>
-          }
-        </select>
-      </div>
-
       <div class="field">
         <label class="label" for="goal-name">{{ t().goals.goalName }}</label>
         <input id="goal-name" class="input" type="text" formControlName="name"
