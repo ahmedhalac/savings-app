@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy, Component, computed, inject, OnInit, signal } from '@angular/core';
 import { DecimalPipe } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { AccountsService } from '../../../accounts/services/accounts.service';
 import { LoansService } from '../../../loans/services/loans.service';
@@ -22,6 +23,7 @@ export class DashboardComponent implements OnInit {
   private accountsService = inject(AccountsService);
   private loansService = inject(LoansService);
   private toastr = inject(ToastrService);
+  private router = inject(Router);
 
   readonly t = inject(I18nService).t;
 
@@ -133,7 +135,11 @@ export class DashboardComponent implements OnInit {
     this.accountsService.delete(account.id).subscribe({
       next: () => {
         this.confirmDeleteAccount.set(null);
-        this.loadAccounts();
+        const remaining = this.accounts().filter(a => a.id !== account.id);
+        this.accounts.set(remaining);
+        if (remaining.length === 0) {
+          this.router.navigate(['/setup']);
+        }
       },
       error: (err) => {
         this.confirmDeleteAccount.set(null);
