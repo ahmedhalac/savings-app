@@ -47,7 +47,7 @@
 ### Auth (Better Auth)
 
 - [x] Rename Prisma `Account` model → `AppAccount` with `@@map("accounts")` to avoid conflict with Better Auth's own `Account` model
-- [ ] Install `better-auth` and `@thallesp/nestjs-better-auth` in backend
+- [x] Install `better-auth` and `@thallesp/nestjs-better-auth` in backend
 - [ ] Add Better Auth models to Prisma schema via `npx auth@latest generate`
 - [ ] Add `userId` FK to `AppAccount`, `Goal`, and `Loan` models
 - [ ] Run fresh migration (`add_auth_and_user_scope`) — wipes existing data
