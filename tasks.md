@@ -50,7 +50,7 @@
 - [x] Install `better-auth` and `@thallesp/nestjs-better-auth` in backend
 - [x] Add Better Auth models to Prisma schema via `npx auth@latest generate`
 - [x] Add `userId` FK to `AppAccount`, `Goal`, and `Loan` models
-- [ ] Run fresh migration (`add_auth_and_user_scope`) — wipes existing data
+- [x] Run fresh migration (`add_auth_and_user_scope`) — wipes existing data
 - [ ] Create `src/auth/auth.ts` — Better Auth config with Prisma adapter, email+password, Google, Microsoft
 - [ ] Create `src/auth/auth.module.ts` — register `AuthModule.forRoot({ auth })`
 - [ ] Update `main.ts` — disable body parser (`bodyParser: false`)
