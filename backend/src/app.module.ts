@@ -8,9 +8,11 @@ import { AccountsModule } from './accounts/accounts.module.js';
 import { TransactionsModule } from './transactions/transactions.module.js';
 import { GoalsModule } from './goals/goals.module.js';
 import { LoansModule } from './loans/loans.module.js';
+import { AuthModule } from './auth/auth.module.js';
 
 @Module({
   imports: [
+    AuthModule,
     ServeStaticModule.forRoot({
       rootPath: join(__dirname, '..', '..', '..', 'frontend', 'dist', 'frontend', 'browser'),
       exclude: ['/api/{*path}'],

@@ -52,10 +52,10 @@
 - [x] Add `userId` FK to `AppAccount`, `Goal`, and `Loan` models
 - [x] Run fresh migration (`add_auth_and_user_scope`) — wipes existing data
 - [x] Create `src/auth/auth.ts` — Better Auth config with Prisma adapter, email+password, Google
-- [ ] Create `src/auth/auth.module.ts` — register `AuthModule.forRoot({ auth })`
+- [x] Create `src/auth/auth.module.ts` — register `AuthModule.forRoot({ auth })`
 - [ ] Update `main.ts` — disable body parser (`bodyParser: false`)
 - [ ] Update `app.module.ts` — import `AuthModule`
-- [ ] Add env vars: `BETTER_AUTH_SECRET`, `BETTER_AUTH_URL`, `GOOGLE_CLIENT_ID`, `GOOGLE_CLIENT_SECRET`, `MICROSOFT_CLIENT_ID`, `MICROSOFT_CLIENT_SECRET`
+- [ ] Add env vars: `BETTER_AUTH_SECRET`, `BETTER_AUTH_URL`, `GOOGLE_CLIENT_ID`, `GOOGLE_CLIENT_SECRET`,
 - [ ] Update all controllers to extract `userId` from `@Session()` and pass to services
 - [ ] Update all services to filter/create data by `userId` (accounts, transactions, goals, loans)
 - [ ] Replace all `prisma.account.*` calls with `prisma.appAccount.*` throughout backend
