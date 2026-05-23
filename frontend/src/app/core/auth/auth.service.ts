@@ -8,8 +8,9 @@ export class AuthService {
   private readonly destroyRef = inject(DestroyRef);
   private readonly _state = signal<SessionAtomState>(authClient.useSession.get());
 
+  private readonly _signingOut = signal(false);
   readonly session = computed(() => this._state().data);
-  readonly isAuthenticated = computed(() => !!this._state().data && !this._state().isPending);
+  readonly isAuthenticated = computed(() => !this._signingOut() && !!this._state().data && !this._state().isPending);
 
   constructor() {
     const unsub = authClient.useSession.subscribe((s) => this._state.set(s));
@@ -28,7 +29,8 @@ export class AuthService {
     return authClient.signUp.email({ name, email, password });
   }
 
-  signOut() {
+  async signOut() {
+    this._signingOut.set(true);
     return authClient.signOut();
   }
 }
