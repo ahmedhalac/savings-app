@@ -16,8 +16,12 @@ export class AuthService {
     this.destroyRef.onDestroy(() => unsub());
   }
 
-  signIn(email: string, password: string) {
-    return authClient.signIn.email({ email, password });
+  async signIn(email: string, password: string) {
+    const result = await authClient.signIn.email({ email, password });
+    if (!result.error) {
+      await authClient.useSession.get().refetch();
+    }
+    return result;
   }
 
   signUp(name: string, email: string, password: string) {
