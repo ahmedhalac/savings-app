@@ -22,21 +22,19 @@ export class GoalsService {
   }
 
   async findAll() {
-    const [goals, nonBufferAccounts, loans] = await Promise.all([
+    const [goals, nonBufferAccounts] = await Promise.all([
       this.prisma.goal.findMany({ orderBy: { createdAt: 'desc' } }),
       this.prisma.account.findMany({
         where: { type: { not: 'buffer' } },
         include: { transactions: true },
       }),
-      this.prisma.loan.findMany(),
     ]);
 
     const accountsBalance = nonBufferAccounts.reduce(
       (sum, a) => sum + Number(a.balance),
       0,
     );
-    const totalLoaned = loans.reduce((sum, l) => sum + Number(l.amount), 0);
-    const savedAmount = accountsBalance + totalLoaned;
+    const savedAmount = accountsBalance;
     const avgMonthlyDeposit = this.calcAvgMonthlyDeposit(nonBufferAccounts);
 
     return goals.map((goal) => {
