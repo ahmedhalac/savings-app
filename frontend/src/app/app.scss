@@ -101,14 +101,4 @@
     color: var(--color-accent);
   }
 
-  &--logout {
-    background: none;
-    border: none;
-    cursor: pointer;
-    color: var(--color-gray-500);
-
-    &:hover {
-      color: var(--color-error, #ef4444);
-    }
-  }
 }

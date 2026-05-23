@@ -7,6 +7,7 @@ export const bs: Translations = {
     goals: 'Ciljevi',
     loans: 'Pozajmice',
     logout: 'Odjava',
+    settings: 'Postavke',
   },
   dashboard: {
     totalBalance: 'Ukupan iznos',

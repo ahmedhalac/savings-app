@@ -5,6 +5,7 @@ export interface Translations {
     goals: string;
     loans: string;
     logout: string;
+    settings: string;
   };
   dashboard: {
     totalBalance: string;
