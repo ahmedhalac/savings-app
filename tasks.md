@@ -105,7 +105,7 @@
 - [x] Install `better-auth` in frontend
 - [x] Create `core/auth/auth.client.ts` — `createAuthClient` pointing to backend
 - [x] Create `core/auth/auth.service.ts` — Angular signal-based service (session, isAuthenticated, signIn, signOut)
-- [ ] Create `core/interceptors/credentials.interceptor.ts` — adds `withCredentials: true` to all requests
+- [x] Create `core/interceptors/credentials.interceptor.ts` — adds `withCredentials: true` to all requests
 - [ ] Register credentials interceptor in `app.config.ts`
 - [ ] Create `core/guards/auth.guard.ts` — redirect to `/login` if not authenticated
 - [ ] Update `app.routes.ts` — add `/login` and `/register` routes; wrap all existing routes under `authGuard`
