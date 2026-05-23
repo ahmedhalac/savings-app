@@ -88,6 +88,18 @@ export const enUS: Translations = {
     complete: 'Complete Setup',
     completing: 'Setting up…',
   },
+  auth: {
+    signIn: 'Sign In',
+    signUp: 'Create Account',
+    email: 'Email',
+    password: 'Password',
+    name: 'Full Name',
+    signingIn: 'Signing in…',
+    signingUp: 'Creating account…',
+    noAccount: "Don't have an account? Sign up",
+    hasAccount: 'Already have an account? Sign in',
+    error: 'Invalid email or password.',
+  },
   toast: {
     error: 'Something went wrong',
   },

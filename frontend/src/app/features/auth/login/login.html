@@ -1,0 +1,40 @@
+<div class="auth-page">
+  <div class="auth-card">
+    <h1 class="auth-title">{{ t().auth.signIn }}</h1>
+
+    <div class="field">
+      <label class="label" for="email">{{ t().auth.email }}</label>
+      <input
+        id="email"
+        class="input"
+        type="email"
+        autocomplete="email"
+        [value]="email()"
+        (input)="email.set($any($event.target).value)"
+      />
+    </div>
+
+    <div class="field">
+      <label class="label" for="password">{{ t().auth.password }}</label>
+      <input
+        id="password"
+        class="input"
+        type="password"
+        autocomplete="current-password"
+        [value]="password()"
+        (input)="password.set($any($event.target).value)"
+        (keydown.enter)="submit()"
+      />
+    </div>
+
+    @if (status() === 'error') {
+      <p class="feedback error">{{ t().auth.error }}</p>
+    }
+
+    <button class="submit-btn" type="button" [disabled]="!canSubmit" (click)="submit()">
+      @if (status() === 'loading') { {{ t().auth.signingIn }} } @else { {{ t().auth.signIn }} }
+    </button>
+
+    <a class="switch-link" routerLink="/register">{{ t().auth.noAccount }}</a>
+  </div>
+</div>

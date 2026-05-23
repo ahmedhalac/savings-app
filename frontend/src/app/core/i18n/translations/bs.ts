@@ -89,6 +89,18 @@ export const bs: Translations = {
     complete: 'Završi postavljanje',
     completing: 'Postavljam…',
   },
+  auth: {
+    signIn: 'Prijavi se',
+    signUp: 'Kreiraj račun',
+    email: 'Email',
+    password: 'Lozinka',
+    name: 'Ime i prezime',
+    signingIn: 'Prijavljivanje…',
+    signingUp: 'Kreiranje računa…',
+    noAccount: 'Nemate račun? Registrujte se',
+    hasAccount: 'Već imate račun? Prijavite se',
+    error: 'Pogrešan email ili lozinka.',
+  },
   toast: {
     error: 'Desila se greška',
   },

@@ -86,6 +86,18 @@ export interface Translations {
     complete: string;
     completing: string;
   };
+  auth: {
+    signIn: string;
+    signUp: string;
+    email: string;
+    password: string;
+    name: string;
+    signingIn: string;
+    signingUp: string;
+    noAccount: string;
+    hasAccount: string;
+    error: string;
+  };
   toast: {
     error: string;
   };
