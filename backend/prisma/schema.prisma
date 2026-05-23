@@ -19,7 +19,7 @@ enum TransactionType {
   withdrawal
 }
 
-model Account {
+model AppAccount {
   id           Int           @id @default(autoincrement())
   name         String
   type         AccountType
@@ -37,7 +37,7 @@ model Transaction {
   amount    Decimal         @db.Decimal(12, 2)
   note      String?
   createdAt DateTime        @default(now()) @map("created_at")
-  account   Account         @relation(fields: [accountId], references: [id])
+  account   AppAccount      @relation(fields: [accountId], references: [id])
 
   @@map("transactions")
 }

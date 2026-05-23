@@ -24,7 +24,7 @@ export class GoalsService {
   async findAll() {
     const [goals, nonBufferAccounts] = await Promise.all([
       this.prisma.goal.findMany({ orderBy: { createdAt: 'desc' } }),
-      this.prisma.account.findMany({
+      this.prisma.appAccount.findMany({
         where: { type: { not: 'buffer' } },
         include: { transactions: true },
       }),

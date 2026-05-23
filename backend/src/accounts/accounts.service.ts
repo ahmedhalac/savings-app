@@ -8,20 +8,20 @@ export class AccountsService {
 
   async create(dto: CreateAccountDto) {
     if (dto.type === 'buffer') {
-      const existing = await this.prisma.account.findFirst({ where: { type: 'buffer' } });
+      const existing = await this.prisma.appAccount.findFirst({ where: { type: 'buffer' } });
       if (existing) throw new ConflictException('A Buffer account already exists');
     }
-    return this.prisma.account.create({ data: { name: dto.name, type: dto.type } });
+    return this.prisma.appAccount.create({ data: { name: dto.name, type: dto.type } });
   }
 
   findAll() {
-    return this.prisma.account.findMany({
+    return this.prisma.appAccount.findMany({
       orderBy: { createdAt: 'asc' },
     });
   }
 
   async getSummary() {
-    const accounts = await this.prisma.account.findMany({
+    const accounts = await this.prisma.appAccount.findMany({
       where: { type: { not: 'buffer' } },
     });
     const total = accounts.reduce((sum, a) => sum + Number(a.balance), 0);
@@ -31,7 +31,7 @@ export class AccountsService {
   async delete(id: number) {
     await this.prisma.$transaction([
       this.prisma.transaction.deleteMany({ where: { accountId: id } }),
-      this.prisma.account.delete({ where: { id } }),
+      this.prisma.appAccount.delete({ where: { id } }),
     ]);
   }
 }

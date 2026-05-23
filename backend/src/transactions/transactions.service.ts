@@ -10,7 +10,7 @@ export class TransactionsService {
   constructor(private readonly prisma: PrismaService) {}
 
   async deposit(accountId: number, amount: number) {
-    const account = await this.prisma.account.findUnique({
+    const account = await this.prisma.appAccount.findUnique({
       where: { id: accountId },
     });
     if (!account) throw new NotFoundException('Account not found');
@@ -19,7 +19,7 @@ export class TransactionsService {
       this.prisma.transaction.create({
         data: { accountId, type: 'deposit', amount },
       }),
-      this.prisma.account.update({
+      this.prisma.appAccount.update({
         where: { id: accountId },
         data: { balance: { increment: amount } },
       }),
@@ -31,7 +31,7 @@ export class TransactionsService {
     if (!note || !note.trim())
       throw new BadRequestException('note is required for withdrawals');
 
-    const account = await this.prisma.account.findUnique({
+    const account = await this.prisma.appAccount.findUnique({
       where: { id: accountId },
     });
     if (!account) throw new NotFoundException('Account not found');
@@ -42,7 +42,7 @@ export class TransactionsService {
       this.prisma.transaction.create({
         data: { accountId, type: 'withdrawal', amount, note },
       }),
-      this.prisma.account.update({
+      this.prisma.appAccount.update({
         where: { id: accountId },
         data: { balance: { decrement: amount } },
       }),
