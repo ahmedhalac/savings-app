@@ -6,6 +6,7 @@ export const bs: Translations = {
     transactions: 'Transakcije',
     goals: 'Ciljevi',
     loans: 'Pozajmice',
+    logout: 'Odjava',
   },
   dashboard: {
     totalBalance: 'Ukupan iznos',

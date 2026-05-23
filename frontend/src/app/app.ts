@@ -18,7 +18,12 @@ export class App implements AfterViewInit {
   readonly t = inject(I18nService).t;
   private readonly health = inject(ApiHealthService);
   readonly apiReady = this.health.isReady;
-  readonly isAuthenticated = inject(AuthService).isAuthenticated;
+  private readonly auth = inject(AuthService);
+  readonly isAuthenticated = this.auth.isAuthenticated;
+
+  signOut() {
+    this.auth.signOut();
+  }
 
   constructor() {
     this.health.init();

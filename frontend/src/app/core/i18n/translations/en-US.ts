@@ -6,6 +6,7 @@ export const enUS: Translations = {
     transactions: 'Transactions',
     goals: 'Goals',
     loans: 'Loans',
+    logout: 'Logout',
   },
   dashboard: {
     totalBalance: 'Total Balance',
