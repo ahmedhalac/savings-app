@@ -92,4 +92,8 @@ export const bs: Translations = {
   toast: {
     error: 'Desila se greška',
   },
+  wakeup: {
+    title: 'Učitavamo vaše podatke…',
+    subtitle: 'Server se budi. Ovo obično traje manje od minute.',
+  },
 };

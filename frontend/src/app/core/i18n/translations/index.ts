@@ -89,6 +89,10 @@ export interface Translations {
   toast: {
     error: string;
   };
+  wakeup: {
+    title: string;
+    subtitle: string;
+  };
 }
 
 export type Locale = 'en-US' | 'bs';

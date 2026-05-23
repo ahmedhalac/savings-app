@@ -91,4 +91,8 @@ export const enUS: Translations = {
   toast: {
     error: 'Something went wrong',
   },
+  wakeup: {
+    title: "We're fetching your data…",
+    subtitle: 'The server is waking up. This usually takes under a minute.',
+  },
 };

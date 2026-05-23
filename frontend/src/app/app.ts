@@ -3,6 +3,7 @@ import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 import { I18nService } from './core/i18n/i18n.service';
 import { LangPickerComponent } from './core/i18n/lang-picker/lang-picker';
 import { ThemeToggleComponent } from './core/theme/theme-toggle/theme-toggle';
+import { ApiHealthService } from './core/services/api-health.service';
 import { LogoComponent } from './shared/logo/logo';
 
 @Component({
@@ -14,6 +15,12 @@ import { LogoComponent } from './shared/logo/logo';
 })
 export class App implements AfterViewInit {
   readonly t = inject(I18nService).t;
+  private readonly health = inject(ApiHealthService);
+  readonly apiReady = this.health.isReady;
+
+  constructor() {
+    this.health.init();
+  }
 
   ngAfterViewInit() {
     document.getElementById('app-loader')?.remove();

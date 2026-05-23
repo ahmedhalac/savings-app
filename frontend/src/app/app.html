@@ -1,3 +1,11 @@
+@if (!apiReady()) {
+  <div class="api-wakeup-overlay" role="status" aria-live="polite">
+    <div class="wakeup-spinner"></div>
+    <p class="wakeup-title">{{ t().wakeup.title }}</p>
+    <p class="wakeup-subtitle">{{ t().wakeup.subtitle }}</p>
+  </div>
+}
+
 <div class="app-shell">
   <header class="top-bar">
     <app-logo />
