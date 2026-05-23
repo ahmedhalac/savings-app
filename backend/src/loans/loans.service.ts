@@ -5,20 +5,21 @@ import { PrismaService } from '../prisma/prisma.service.js';
 export class LoansService {
   constructor(private readonly prisma: PrismaService) {}
 
-  create(borrowerName: string, amount: number) {
-    return this.prisma.loan.create({ data: { borrowerName, amount } });
+  create(borrowerName: string, amount: number, userId: string) {
+    return this.prisma.loan.create({ data: { borrowerName, amount, userId } });
   }
 
-  async findAll() {
+  async findAll(userId: string) {
     const loans = await this.prisma.loan.findMany({
+      where: { userId },
       orderBy: { createdAt: 'desc' },
     });
     const totalLoaned = loans.reduce((sum, l) => sum + Number(l.amount), 0);
     return { loans, totalLoaned };
   }
 
-  async delete(id: number) {
-    const loan = await this.prisma.loan.findUnique({ where: { id } });
+  async delete(id: number, userId: string) {
+    const loan = await this.prisma.loan.findFirst({ where: { id, userId } });
     if (!loan) throw new NotFoundException('Loan not found');
     return this.prisma.loan.delete({ where: { id } });
   }

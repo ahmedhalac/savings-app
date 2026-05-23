@@ -11,21 +11,22 @@ type AccountWithTransactions = {
 export class GoalsService {
   constructor(private readonly prisma: PrismaService) {}
 
-  create(name: string, targetAmount: number, deadline?: string) {
+  create(name: string, targetAmount: number, userId: string, deadline?: string) {
     return this.prisma.goal.create({
       data: {
         name,
         targetAmount,
+        userId,
         deadline: deadline ? new Date(deadline) : null,
       },
     });
   }
 
-  async findAll() {
+  async findAll(userId: string) {
     const [goals, nonBufferAccounts] = await Promise.all([
-      this.prisma.goal.findMany({ orderBy: { createdAt: 'desc' } }),
+      this.prisma.goal.findMany({ where: { userId }, orderBy: { createdAt: 'desc' } }),
       this.prisma.appAccount.findMany({
-        where: { type: { not: 'buffer' } },
+        where: { type: { not: 'buffer' }, userId },
         include: { transactions: true },
       }),
     ]);
@@ -113,8 +114,8 @@ export class GoalsService {
     return total / totalMonths;
   }
 
-  async delete(id: number) {
-    const goal = await this.prisma.goal.findUnique({ where: { id } });
+  async delete(id: number, userId: string) {
+    const goal = await this.prisma.goal.findFirst({ where: { id, userId } });
     if (!goal) throw new NotFoundException('Goal not found');
     return this.prisma.goal.delete({ where: { id } });
   }

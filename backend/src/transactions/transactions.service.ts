@@ -9,9 +9,9 @@ import { PrismaService } from '../prisma/prisma.service.js';
 export class TransactionsService {
   constructor(private readonly prisma: PrismaService) {}
 
-  async deposit(accountId: number, amount: number) {
-    const account = await this.prisma.appAccount.findUnique({
-      where: { id: accountId },
+  async deposit(accountId: number, amount: number, userId: string) {
+    const account = await this.prisma.appAccount.findFirst({
+      where: { id: accountId, userId },
     });
     if (!account) throw new NotFoundException('Account not found');
 
@@ -27,12 +27,12 @@ export class TransactionsService {
     return transaction;
   }
 
-  async withdraw(accountId: number, amount: number, note: string) {
+  async withdraw(accountId: number, amount: number, note: string, userId: string) {
     if (!note || !note.trim())
       throw new BadRequestException('note is required for withdrawals');
 
-    const account = await this.prisma.appAccount.findUnique({
-      where: { id: accountId },
+    const account = await this.prisma.appAccount.findFirst({
+      where: { id: accountId, userId },
     });
     if (!account) throw new NotFoundException('Account not found');
     if (Number(account.balance) < amount)
@@ -50,7 +50,11 @@ export class TransactionsService {
     return transaction;
   }
 
-  findByAccount(accountId: number) {
+  async findByAccount(accountId: number, userId: string) {
+    const account = await this.prisma.appAccount.findFirst({
+      where: { id: accountId, userId },
+    });
+    if (!account) throw new NotFoundException('Account not found');
     return this.prisma.transaction.findMany({
       where: { accountId },
       orderBy: { createdAt: 'desc' },
