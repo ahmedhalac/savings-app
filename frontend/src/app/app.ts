@@ -1,5 +1,5 @@
 import { AfterViewInit, ChangeDetectionStrategy, Component, inject } from '@angular/core';
-import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
+import { Router, RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 import { I18nService } from './core/i18n/i18n.service';
 import { LangPickerComponent } from './core/i18n/lang-picker/lang-picker';
 import { ThemeToggleComponent } from './core/theme/theme-toggle/theme-toggle';
@@ -21,15 +21,19 @@ export class App implements AfterViewInit {
   private readonly health = inject(ApiHealthService);
   readonly apiReady = this.health.isReady;
   private readonly auth = inject(AuthService);
+  private readonly router = inject(Router);
   private readonly accountsService = inject(AccountsService);
   readonly isAuthenticated = this.auth.isAuthenticated;
 
   async signOut() {
     this.accountsService.invalidateCache();
     await this.auth.signOut();
-    // Hard reload so the optimistic auth flags and any cached observables are torn down
-    // — iOS PWA otherwise leaves the previous shell half-mounted.
-    window.location.assign('/login');
+    if (window.matchMedia('(display-mode: standalone)').matches) {
+      // Hard reload on iOS PWA to tear down optimistic flags and cached observables.
+      window.location.assign('/login');
+    } else {
+      void this.router.navigate(['/login']);
+    }
   }
 
   constructor() {
