@@ -1,4 +1,4 @@
-@if (!apiReady() && !isAuthenticated()) {
+@if (!apiReady()) {
   <div class="api-wakeup-overlay" role="status" aria-live="polite">
     <div class="wakeup-spinner"></div>
     <p class="wakeup-title">{{ t().wakeup.title }}</p>

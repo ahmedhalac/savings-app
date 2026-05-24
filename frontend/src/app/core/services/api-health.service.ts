@@ -1,22 +1,22 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, inject, signal } from '@angular/core';
-import { race, retry, timeout, timer } from 'rxjs';
+import { catchError, EMPTY, retry, timeout, timer } from 'rxjs';
 import { environment } from '../../../environments/environment';
 
 @Injectable({ providedIn: 'root' })
 export class ApiHealthService {
   private readonly http = inject(HttpClient);
-  readonly isReady = signal(false);
+  // Start ready — never block the UI. Health check is a background warm-up ping only.
+  readonly isReady = signal(true);
 
   init(): void {
-    // Each individual request times out after 8s (so it errors and retries rather than hanging).
-    // Overall race caps the entire wait at 15s — after that the UI unlocks regardless.
-    race(
-      this.http.get(`${environment.apiBaseUrl}/health`).pipe(
+    this.http
+      .get(`${environment.apiBaseUrl}/health`)
+      .pipe(
         timeout(8000),
-        retry({ delay: () => timer(2000) }),
-      ),
-      timer(15000),
-    ).subscribe(() => this.isReady.set(true));
+        retry({ count: 3, delay: () => timer(3000) }),
+        catchError(() => EMPTY),
+      )
+      .subscribe();
   }
 }
