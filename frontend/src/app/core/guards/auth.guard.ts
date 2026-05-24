@@ -8,9 +8,10 @@ export const authGuard: CanActivateFn = () => {
   const auth = inject(AuthService);
   const router = inject(Router);
 
-  if (!auth.isLoading()) {
-    return auth.isAuthenticated() ? true : router.createUrlTree(['/login']);
-  }
+  // If already authenticated (optimistic after login OR confirmed session), let through immediately.
+  // Never block on isLoading here — on mobile PWA the session refetch can hang indefinitely.
+  if (auth.isAuthenticated()) return true;
+  if (!auth.isLoading()) return router.createUrlTree(['/login']);
 
   return toObservable(auth.isLoading).pipe(
     filter(loading => !loading),
