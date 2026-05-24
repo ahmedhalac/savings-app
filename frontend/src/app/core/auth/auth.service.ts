@@ -9,18 +9,28 @@ export class AuthService {
   private readonly _state = signal<SessionAtomState>(authClient.useSession.get());
 
   private readonly _signingOut = signal(false);
+  // Optimistically true immediately after a successful signIn before refetch completes
+  private readonly _signedIn = signal(false);
+
   readonly session = computed(() => this._state().data);
-  readonly isAuthenticated = computed(() => !this._signingOut() && !!this._state().data && !this._state().isPending);
+  readonly isAuthenticated = computed(() =>
+    !this._signingOut() && (this._signedIn() || (!!this._state().data && !this._state().isPending))
+  );
 
   constructor() {
-    const unsub = authClient.useSession.subscribe((s) => this._state.set(s));
+    const unsub = authClient.useSession.subscribe((s) => {
+      this._state.set(s);
+      if (s.data && !s.isPending) this._signedIn.set(false);
+    });
     this.destroyRef.onDestroy(() => unsub());
   }
 
   async signIn(email: string, password: string) {
     const result = await authClient.signIn.email({ email, password });
     if (!result.error) {
-      await authClient.useSession.get().refetch();
+      this._signedIn.set(true);
+      // Fire-and-forget — on mobile PWA the service worker can cause this to hang
+      authClient.useSession.get().refetch().catch(() => {});
     }
     return result;
   }
@@ -31,6 +41,7 @@ export class AuthService {
 
   async signOut() {
     this._signingOut.set(true);
+    this._signedIn.set(false);
     return authClient.signOut();
   }
 }
