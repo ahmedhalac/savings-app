@@ -13,6 +13,7 @@ export class AuthService {
   private readonly _signedIn = signal(false);
 
   readonly session = computed(() => this._state().data);
+  readonly isLoading = computed(() => this._state().isPending);
   readonly isAuthenticated = computed(() =>
     !this._signingOut() && (this._signedIn() || (!!this._state().data && !this._state().isPending))
   );
