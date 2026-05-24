@@ -57,19 +57,14 @@ export class TransactionsComponent {
     this.errorMessage.set('');
   }
 
-  onSelectHistoryAccount(event: Event) {
-    const raw = (event.target as HTMLSelectElement).value;
-    const id = raw ? +raw : null;
+  selectHistoryAccount(account: Account) {
+    const id = account.id;
     this.selectedAccountId.set(id);
-    if (id) {
-      this.txLoading.set(true);
-      this.transactionsService.getByAccount(id).subscribe(txs => {
-        this.transactions.set(txs);
-        this.txLoading.set(false);
-      });
-    } else {
-      this.transactions.set([]);
-    }
+    this.txLoading.set(true);
+    this.transactionsService.getByAccount(id).subscribe(txs => {
+      this.transactions.set(txs);
+      this.txLoading.set(false);
+    });
   }
 
   submitDeposit() {

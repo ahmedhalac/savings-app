@@ -86,12 +86,15 @@
   <section class="history">
     <h2 class="section-title">{{ t().transactions.history }}</h2>
 
-    <select class="input" (change)="onSelectHistoryAccount($event)">
-      <option value="">{{ t().transactions.selectAccount }}</option>
+    <div class="account-cards-scroll">
       @for (account of accounts(); track account.id) {
-        <option [value]="account.id">{{ account.name }}</option>
+        <button class="account-card" [class.active]="selectedAccountId() === account.id"
+                (click)="selectHistoryAccount(account)">
+          <span class="card-name">{{ account.name }}</span>
+          <span class="card-type" [class]="account.type">{{ account.type }}</span>
+        </button>
       }
-    </select>
+    </div>
 
     @if (txLoading()) {
       <div class="skeleton-list">
