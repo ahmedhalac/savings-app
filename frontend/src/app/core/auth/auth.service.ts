@@ -27,7 +27,11 @@ export class AuthService {
   }
 
   async signIn(email: string, password: string) {
-    const result = await authClient.signIn.email({ email, password });
+    const result = await withTimeout(
+      authClient.signIn.email({ email, password }),
+      8000,
+      { data: null, error: { message: 'timeout', status: 408, statusText: 'Request Timeout' } } as Awaited<ReturnType<typeof authClient.signIn.email>>,
+    );
     if (!result.error) {
       this._signingOut.set(false);
       this._signedIn.set(true);
@@ -44,6 +48,14 @@ export class AuthService {
   async signOut() {
     this._signingOut.set(true);
     this._signedIn.set(false);
-    return authClient.signOut();
+    // Cap the wait — on iOS PWA signOut can hang. We've already cleared client state.
+    return withTimeout(authClient.signOut(), 8000, undefined as Awaited<ReturnType<typeof authClient.signOut>>);
   }
+}
+
+function withTimeout<T>(promise: Promise<T>, ms: number, fallback: T): Promise<T> {
+  return Promise.race([
+    promise,
+    new Promise<T>(resolve => setTimeout(() => resolve(fallback), ms)),
+  ]);
 }
