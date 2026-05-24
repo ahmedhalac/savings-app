@@ -15,7 +15,7 @@
 }
 
 .total-balance {
-  background: var(--color-accent);
+  background: linear-gradient(135deg, oklch(55% 0.18 250) 0%, oklch(68% 0.16 235) 100%);
   color: var(--color-white);
   border-radius: var(--radius-xl);
   padding: var(--space-8) var(--space-6);
