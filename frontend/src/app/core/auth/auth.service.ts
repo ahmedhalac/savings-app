@@ -28,6 +28,7 @@ export class AuthService {
   async signIn(email: string, password: string) {
     const result = await authClient.signIn.email({ email, password });
     if (!result.error) {
+      this._signingOut.set(false);
       this._signedIn.set(true);
       // Fire-and-forget — on mobile PWA the service worker can cause this to hang
       authClient.useSession.get().refetch().catch(() => {});

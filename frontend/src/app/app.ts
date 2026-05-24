@@ -7,6 +7,7 @@ import { ApiHealthService } from './core/services/api-health.service';
 import { LogoComponent } from './shared/logo/logo';
 import { AuthService } from './core/auth/auth.service';
 import { ProfileMenuComponent } from './core/profile-menu/profile-menu.component';
+import { AccountsService } from './features/accounts/services/accounts.service';
 
 @Component({
   selector: 'app-root',
@@ -21,9 +22,11 @@ export class App implements AfterViewInit {
   readonly apiReady = this.health.isReady;
   private readonly auth = inject(AuthService);
   private readonly router = inject(Router);
+  private readonly accountsService = inject(AccountsService);
   readonly isAuthenticated = this.auth.isAuthenticated;
 
   async signOut() {
+    this.accountsService.invalidateCache();
     void this.router.navigate(['/login']);
     await this.auth.signOut();
   }
