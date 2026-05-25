@@ -27,6 +27,20 @@ export class AuthService {
   }
 
   async signIn(email: string, password: string) {
+    // Wait for any in-flight session validation to settle before signing in.
+    // After inactivity, useSession re-validates lazily; signing in during that
+    // pending window can cause a false "invalid credentials" error.
+    await withTimeout(
+      new Promise<void>(resolve => {
+        if (!authClient.useSession.get().isPending) { resolve(); return; }
+        const unsub = authClient.useSession.subscribe(s => {
+          if (!s.isPending) { unsub(); resolve(); }
+        });
+      }),
+      2000,
+      undefined,
+    );
+
     const result = await withTimeout(
       authClient.signIn.email({ email, password }),
       8000,
