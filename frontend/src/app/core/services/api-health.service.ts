@@ -6,8 +6,7 @@ import { environment } from '../../../environments/environment';
 @Injectable({ providedIn: 'root' })
 export class ApiHealthService {
   private readonly http = inject(HttpClient);
-  // Start ready — never block the UI. Health check is a background warm-up ping only.
-  readonly isReady = signal(true);
+  readonly isReady = signal(false);
 
   init(): void {
     this.http
@@ -15,8 +14,8 @@ export class ApiHealthService {
       .pipe(
         timeout(8000),
         retry({ count: 3, delay: () => timer(3000) }),
-        catchError(() => EMPTY),
+        catchError(() => { this.isReady.set(true); return EMPTY; }),
       )
-      .subscribe();
+      .subscribe(() => this.isReady.set(true));
   }
 }
