@@ -19,6 +19,10 @@ export class AccountsService {
     return this.http.post<Account>(this.base, data).pipe(tap(() => this.invalidateCache()));
   }
 
+  update(id: number, data: { name?: string; type?: 'savings' | 'current' | 'buffer'; balance?: number }) {
+    return this.http.patch<Account>(`${this.base}/${id}`, data).pipe(tap(() => this.invalidateCache()));
+  }
+
   delete(id: number) {
     return this.http.delete(`${this.base}/${id}`).pipe(tap(() => this.invalidateCache()));
   }

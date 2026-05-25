@@ -1,8 +1,9 @@
-import { Body, Controller, Delete, Get, Param, ParseIntPipe, Post } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, ParseIntPipe, Patch, Post } from '@nestjs/common';
 import { Session } from '@thallesp/nestjs-better-auth';
 import type { UserSession } from '@thallesp/nestjs-better-auth';
 import { AccountsService } from './accounts.service.js';
 import { CreateAccountDto } from './dto/create-account.dto.js';
+import { UpdateAccountDto } from './dto/update-account.dto.js';
 import { auth } from '../auth/auth.js';
 
 @Controller('accounts')
@@ -22,6 +23,11 @@ export class AccountsController {
   @Get('summary')
   getSummary(@Session() session: UserSession<typeof auth>) {
     return this.accountsService.getSummary(session.user.id);
+  }
+
+  @Patch(':id')
+  update(@Param('id', ParseIntPipe) id: number, @Body() dto: UpdateAccountDto, @Session() session: UserSession<typeof auth>) {
+    return this.accountsService.update(id, dto, session.user.id);
   }
 
   @Delete(':id')

@@ -4,6 +4,7 @@ export interface Translations {
     transactions: string;
     goals: string;
     loans: string;
+    accounts: string;
     logout: string;
     settings: string;
   };
@@ -13,6 +14,13 @@ export interface Translations {
     totalLoaned: string;
     accounts: string;
     noAccounts: string;
+    buffer: string;
+    bufferInfo: string;
+    noBuffer: string;
+    manage: string;
+  };
+  accounts: {
+    title: string;
     addAccount: string;
     adding: string;
     accountName: string;
@@ -23,9 +31,15 @@ export interface Translations {
     bufferInfo: string;
     createBuffer: string;
     noBuffer: string;
+    noAccounts: string;
     cancel: string;
     deleteWarning: string;
     delete: string;
+    edit: string;
+    editAccount: string;
+    saving: string;
+    saveChanges: string;
+    balance: string;
   };
   transactions: {
     deposit: string;

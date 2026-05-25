@@ -1,6 +1,7 @@
 import { ConflictException, Injectable, NotFoundException } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service.js';
 import { CreateAccountDto } from './dto/create-account.dto.js';
+import { UpdateAccountDto } from './dto/update-account.dto.js';
 
 @Injectable()
 export class AccountsService {
@@ -27,6 +28,16 @@ export class AccountsService {
     });
     const total = accounts.reduce((sum, a) => sum + Number(a.balance), 0);
     return { totalBalance: total };
+  }
+
+  async update(id: number, dto: UpdateAccountDto, userId: string) {
+    const account = await this.prisma.appAccount.findFirst({ where: { id, userId } });
+    if (!account) throw new NotFoundException('Account not found');
+    if (dto.type === 'buffer' && account.type !== 'buffer') {
+      const existing = await this.prisma.appAccount.findFirst({ where: { type: 'buffer', userId } });
+      if (existing) throw new ConflictException('A Buffer account already exists');
+    }
+    return this.prisma.appAccount.update({ where: { id }, data: dto });
   }
 
   async delete(id: number, userId: string) {

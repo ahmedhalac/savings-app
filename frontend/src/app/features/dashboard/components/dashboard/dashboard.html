@@ -29,9 +29,7 @@
   <section class="accounts-section">
     <div class="section-header">
       <h2 class="section-title">{{ t().dashboard.accounts }}</h2>
-      <button class="add-account-btn" type="button" (click)="openAddModal()">
-        {{ t().dashboard.addAccount }}
-      </button>
+      <a class="manage-link" routerLink="/accounts">{{ t().dashboard.manage }}</a>
     </div>
 
     <div class="accounts-grid">
@@ -45,12 +43,7 @@
               <span class="account-name">{{ account.name }}</span>
               <span class="account-type" [class]="account.type">{{ account.type }}</span>
             </div>
-            <div class="account-right">
-              <span class="account-balance">{{ account.balance | number:'1.2-2' }} KM</span>
-              <button class="delete-btn" type="button" (click)="requestDelete(account)">
-                {{ t().dashboard.delete }}
-              </button>
-            </div>
+            <span class="account-balance">{{ account.balance | number:'1.2-2' }} KM</span>
           </div>
         } @empty {
           <p class="empty">{{ t().dashboard.noAccounts }}</p>
@@ -93,134 +86,11 @@
           <span class="account-name">{{ account.name }}</span>
           <span class="account-type buffer">{{ t().dashboard.buffer }}</span>
         </div>
-        <div class="account-right">
-          <span class="account-balance">{{ account.balance | number:'1.2-2' }} KM</span>
-          <button class="delete-btn" type="button" (click)="requestDelete(account)">
-            {{ t().dashboard.delete }}
-          </button>
-        </div>
+        <span class="account-balance">{{ account.balance | number:'1.2-2' }} KM</span>
       </div>
     } @else {
-      <div class="buffer-empty">
-        <p class="empty">{{ t().dashboard.noBuffer }}</p>
-        <button class="add-account-btn" type="button" (click)="openAddBufferModal()">
-          + {{ t().dashboard.createBuffer }}
-        </button>
-      </div>
+      <p class="empty">{{ t().dashboard.noBuffer }}</p>
     }
   </section>
 
 </div>
-
-<!-- Add Account Modal -->
-@if (showAddModal()) {
-  <div class="modal-backdrop" (click)="closeAddModal()">
-    <div class="modal" (click)="$event.stopPropagation()">
-      <h3 class="modal-title">{{ t().dashboard.addAccount }}</h3>
-
-      <div class="modal-fields">
-        <div class="field">
-          <label class="label" for="new-account-name">{{ t().dashboard.accountName }}</label>
-          <input
-            id="new-account-name"
-            class="input"
-            type="text"
-            [ngModel]="newName()"
-            (ngModelChange)="newName.set($event)"
-            placeholder="e.g. Emergency Fund"
-          />
-        </div>
-
-        <div class="field">
-          <label class="label" for="new-account-type">{{ t().dashboard.accountType }}</label>
-          <select
-            id="new-account-type"
-            class="input"
-            [ngModel]="newType()"
-            (ngModelChange)="newType.set($event)"
-          >
-            <option value="savings">{{ t().dashboard.savings }}</option>
-            <option value="current">{{ t().dashboard.current }}</option>
-          </select>
-        </div>
-      </div>
-
-      @if (addStatus() === 'error') {
-        <p class="feedback error">Something went wrong. Please try again.</p>
-      }
-
-      <div class="modal-actions">
-        <button class="modal-cancel" type="button" (click)="closeAddModal()">
-          {{ t().dashboard.cancel }}
-        </button>
-        <button
-          class="modal-confirm"
-          type="button"
-          [disabled]="!newName().trim() || addStatus() === 'loading'"
-          (click)="submitAdd()"
-        >
-          @if (addStatus() === 'loading') { {{ t().dashboard.adding }} } @else { {{ t().dashboard.addAccount }} }
-        </button>
-      </div>
-    </div>
-  </div>
-}
-
-<!-- Add Buffer Modal -->
-@if (showAddBufferModal()) {
-  <div class="modal-backdrop" (click)="closeAddBufferModal()">
-    <div class="modal" (click)="$event.stopPropagation()">
-      <h3 class="modal-title">{{ t().dashboard.createBuffer }}</h3>
-
-      <div class="modal-fields">
-        <div class="field">
-          <label class="label" for="new-buffer-name">{{ t().dashboard.accountName }}</label>
-          <input
-            id="new-buffer-name"
-            class="input"
-            type="text"
-            [ngModel]="newBufferName()"
-            (ngModelChange)="newBufferName.set($event)"
-            placeholder="e.g. Emergency Buffer"
-          />
-        </div>
-      </div>
-
-      @if (addBufferStatus() === 'error') {
-        <p class="feedback error">Something went wrong. Please try again.</p>
-      }
-
-      <div class="modal-actions">
-        <button class="modal-cancel" type="button" (click)="closeAddBufferModal()">
-          {{ t().dashboard.cancel }}
-        </button>
-        <button
-          class="modal-confirm"
-          type="button"
-          [disabled]="!newBufferName().trim() || addBufferStatus() === 'loading'"
-          (click)="submitAddBuffer()"
-        >
-          @if (addBufferStatus() === 'loading') { {{ t().dashboard.adding }} } @else { {{ t().dashboard.createBuffer }} }
-        </button>
-      </div>
-    </div>
-  </div>
-}
-
-<!-- Delete Confirmation Modal -->
-@if (confirmDeleteAccount()) {
-  <div class="modal-backdrop" (click)="cancelDelete()">
-    <div class="modal" (click)="$event.stopPropagation()">
-      <h3 class="modal-title">{{ confirmDeleteAccount()!.name }}</h3>
-      <p class="modal-message">{{ t().dashboard.deleteWarning }}</p>
-      <div class="modal-actions">
-        <button class="modal-cancel" type="button" (click)="cancelDelete()">
-          {{ t().dashboard.cancel }}
-        </button>
-        <button class="modal-confirm danger" type="button" (click)="confirmDelete()">
-          {{ t().dashboard.delete }}
-        </button>
-      </div>
-    </div>
-  </div>
-}
